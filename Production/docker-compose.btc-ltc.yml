@@ -52,7 +52,7 @@ services:
 
   btcpayserver:
     restart: always
-    image: junglelabs/btcpayjungle:latest
+    image: junglelab/btcpayjungle:latest
     expose:
       - "49392"
     environment:
