@@ -3,7 +3,11 @@ version: "3"
 services:
 
   btcpayserver:
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:latest
+=======
+    image: nicolasdorier/btcpayserver:1.0.1.24
+>>>>>>> upstream/master
     ports: 
       - 8080:49392
     expose:
@@ -18,7 +22,7 @@ services:
       - postgres
 
   nbxplorer:
-    image: nicolasdorier/nbxplorer:1.0.1.10
+    image: nicolasdorier/nbxplorer:1.0.1.13
     expose: 
       - "32838"
     environment:
