@@ -53,11 +53,7 @@ services:
 
   btcpayserver:
     restart: always
-<<<<<<< HEAD
     image: junglelab/btcpayjungle:latest
-=======
-    image: nicolasdorier/btcpayserver:1.0.1.25
->>>>>>> upstream/stable
     expose:
       - "49392"
     environment:
