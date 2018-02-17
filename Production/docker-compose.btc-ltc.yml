@@ -17,7 +17,7 @@ services:
       - "nginx_certs:/etc/nginx/certs:ro"
     links:
       - btcpayserver
-    
+
   nginx-gen:
     restart: always
     image: jwilder/docker-gen
@@ -52,7 +52,7 @@ services:
 
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:latest
+    image: junglelab/btcpayjungle:1.0.1.35
     expose:
       - "49392"
     environment:
@@ -73,7 +73,7 @@ services:
       # Let's encrypt settings
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
-      
+
     links:
       - nbxplorer
       - postgres
@@ -84,7 +84,7 @@ services:
   nbxplorer:
     restart: always
     image: nicolasdorier/nbxplorer:1.0.1.13
-    expose: 
+    expose:
       - "32838"
     environment:
       NBXPLORER_NETWORK: ${NBITCOIN_NETWORK:-regtest}
