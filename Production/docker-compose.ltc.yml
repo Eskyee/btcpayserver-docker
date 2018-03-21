@@ -13,12 +13,7 @@ services:
     - "nginx_html:/usr/share/nginx/html"
     - "nginx_certs:/etc/nginx/certs:ro"
     links:
-<<<<<<< HEAD
-      - nbxplorer
-
-=======
     - btcpayserver
->>>>>>> upstream/master
   nginx-gen:
     restart: always
     image: jwilder/docker-gen
@@ -51,21 +46,21 @@ services:
     - nginx
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.53
+    image: junglelab/btcpayjungle:1.0.1.54
     expose:
     - "49392"
     environment:
       BTCPAY_POSTGRES: User ID=postgres;Host=postgres;Port=5432;Database=btcpayserver${NBITCOIN_NETWORK:-regtest}
       BTCPAY_NETWORK: ${NBITCOIN_NETWORK:-regtest}
       BTCPAY_BIND: 0.0.0.0:49392
-      BTCPAY_EXTERNALURL: https://${BTCPAY_HOST}/
+      BTCPAY_EXTERNALURL: ${BTCPAY_PROTOCOL:-https}://${BTCPAY_HOST}/
       VIRTUAL_NETWORK: nginx-proxy
       VIRTUAL_PORT: 49392
       VIRTUAL_HOST: ${BTCPAY_HOST}
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
-      BTCPAY_CHAINS: "btc"
-      BTCPAY_BTCEXPLORERURL: http://nbxplorer:32838/
+      BTCPAY_LTCEXPLORERURL: http://nbxplorer:32838/
+      BTCPAY_CHAINS: "ltc"
     links:
     - nbxplorer
     - postgres
@@ -74,29 +69,29 @@ services:
     - "nbxplorer_datadir:/root/.nbxplorer"
   nbxplorer:
     restart: always
-    image: nicolasdorier/nbxplorer:1.0.1.23
+    image: nicolasdorier/nbxplorer:1.0.1.24
     expose:
     - "32838"
     environment:
       NBXPLORER_NETWORK: ${NBITCOIN_NETWORK:-regtest}
       NBXPLORER_BIND: 0.0.0.0:32838
-      NBXPLORER_CHAINS: "btc"
-      NBXPLORER_BTCRPCURL: http://bitcoind:43782/
-      NBXPLORER_BTCNODEENDPOINT: bitcoind:39388
+      NBXPLORER_CHAINS: "ltc"
+      NBXPLORER_LTCRPCURL: http://litecoind:43782/
+      NBXPLORER_LTCNODEENDPOINT: litecoind:39388
     volumes:
     - "nbxplorer_datadir:/datadir"
-    - "bitcoin_datadir:/root/.bitcoin"
+    - "litecoin_datadir:/root/.litecoin"
     links:
-    - bitcoind
+    - litecoind
   postgres:
     restart: always
     image: postgres:9.6.5
     volumes:
     - "postgres_datadir:/var/lib/postgresql/data"
-  bitcoind:
+  litecoind:
     restart: always
-    container_name: btcpayserver_bitcoind
-    image: nicolasdorier/docker-bitcoin:0.16.0
+    container_name: btcpayserver_litecoind
+    image: nicolasdorier/docker-litecoin:0.14.2
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
@@ -107,7 +102,7 @@ services:
     - "43782"
     - "39388"
     volumes:
-    - "bitcoin_datadir:/data"
+    - "litecoin_datadir:/data"
 volumes:
   nginx_conf:
   nginx_vhost:
@@ -116,4 +111,4 @@ volumes:
   postgres_datadir:
   btcpay_datadir:
   nbxplorer_datadir:
-  bitcoin_datadir:
+  litecoin_datadir:
