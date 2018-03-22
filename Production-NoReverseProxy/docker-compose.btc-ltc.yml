@@ -2,7 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.54
+    image: junglelab/btcpayjungle:1.0.1.57
     expose:
     - "49392"
     environment:
@@ -54,7 +54,7 @@ services:
   litecoind:
     restart: always
     container_name: btcpayserver_litecoind
-    image: nicolasdorier/docker-litecoin:0.14.2
+    image: nicolasdorier/docker-litecoin:0.15.1
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
