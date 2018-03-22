@@ -46,7 +46,7 @@ services:
     - nginx
   btcpayserver:
     restart: always
-    image: nicolasdorier/btcpayserver:1.0.1.54
+    image: junglelab/btcpayjungle:1.0.1.57
     expose:
     - "49392"
     environment:
@@ -109,25 +109,29 @@ services:
   clightning_bitcoin:
     image: nicolasdorier/clightning
     container_name: btcpayserver_clightning_bitcoin
+    restart: always
     environment:
       LIGHTNINGD_OPT: |
         bitcoin-datadir=/etc/bitcoin
         bitcoin-rpcconnect=bitcoind
         ipaddr=${BTCPAY_HOST}
         network=${NBITCOIN_NETWORK:-regtest}
+        alias=${LIGHTNING_ALIAS}
         chain=btc
     volumes:
     - "clightning_bitcoin_datadir:/root/.lightning"
     - "bitcoin_datadir:/etc/bitcoin"
+    ports:
+    - "9735:9735"
     links:
     - bitcoind
 volumes:
-  nginx_conf: 
-  nginx_vhost: 
-  nginx_html: 
-  nginx_certs: 
-  postgres_datadir: 
-  btcpay_datadir: 
-  nbxplorer_datadir: 
-  bitcoin_datadir: 
-  clightning_bitcoin_datadir: 
+  nginx_conf:
+  nginx_vhost:
+  nginx_html:
+  nginx_certs:
+  postgres_datadir:
+  btcpay_datadir:
+  nbxplorer_datadir:
+  bitcoin_datadir:
+  clightning_bitcoin_datadir:

@@ -2,7 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: always
-    image: nicolasdorier/btcpayserver:1.0.1.54
+    image: junglelab/btcpayjungle:1.0.1.57
     expose:
     - "49392"
     environment:
@@ -52,7 +52,7 @@ services:
   litecoind:
     restart: always
     container_name: btcpayserver_litecoind
-    image: nicolasdorier/docker-litecoin:0.14.2
+    image: nicolasdorier/docker-litecoin:0.15.1
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
@@ -67,21 +67,26 @@ services:
   clightning_litecoin:
     image: nicolasdorier/clightning
     container_name: btcpayserver_clightning_litecoin
+    restart: always
     environment:
       LIGHTNINGD_OPT: |
         bitcoin-datadir=/etc/litecoin
         bitcoin-rpcconnect=litecoind
-        ipaddr=${BTCPAY_HOST}
+        port=9736
+        ipaddr=${BTCPAY_HOST}:9736
         network=${NBITCOIN_NETWORK:-regtest}
+        alias=${LIGHTNING_ALIAS}
         chain=ltc
     volumes:
     - "clightning_litecoin_datadir:/root/.lightning"
     - "litecoin_datadir:/etc/litecoin"
+    ports:
+    - "9736:9736"
     links:
     - litecoind
 volumes:
-  postgres_datadir: 
-  btcpay_datadir: 
-  nbxplorer_datadir: 
-  litecoin_datadir: 
-  clightning_litecoin_datadir: 
+  postgres_datadir:
+  btcpay_datadir:
+  nbxplorer_datadir:
+  litecoin_datadir:
+  clightning_litecoin_datadir:

@@ -2,7 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: always
-    image: nicolasdorier/btcpayserver:1.0.1.54
+    image: junglelab/btcpayjungle:1.0.1.57
     expose:
     - "49392"
     environment:
@@ -62,7 +62,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
 volumes:
-  postgres_datadir: 
-  btcpay_datadir: 
-  nbxplorer_datadir: 
-  bitcoin_datadir: 
+  postgres_datadir:
+  btcpay_datadir:
+  nbxplorer_datadir:
+  bitcoin_datadir:
