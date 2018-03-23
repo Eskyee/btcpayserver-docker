@@ -2,11 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: always
-<<<<<<< HEAD
-    image: junglelab/btcpayjungle:1.0.1.57
-=======
-    image: nicolasdorier/btcpayserver:1.0.1.58
->>>>>>> upstream/master
+    image: junglelab/btcpayjungle:1.0.1.59
     expose:
     - "49392"
     environment:
