@@ -46,7 +46,7 @@ services:
     - nginx
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.72
+    image: junglelab/btcpayjungle:1.0.1.73
     expose:
     - "49392"
     environment:
@@ -115,7 +115,7 @@ services:
     volumes:
     - "litecoin_datadir:/data"
   clightning_litecoin:
-    image: nicolasdorier/clightning
+    image: nicolasdorier/clightning:0.0.0.2
     container_name: btcpayserver_clightning_litecoin
     restart: always
     environment:
@@ -150,7 +150,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning
+    image: nicolasdorier/clightning:0.0.0.2
     container_name: btcpayserver_clightning_bitcoin
     restart: always
     environment:
