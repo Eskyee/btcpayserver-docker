@@ -3,9 +3,13 @@ services:
   btcpayserver:
     restart: always
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.1.71
 =======
     image: nicolasdorier/btcpayserver:1.0.1.72
+>>>>>>> upstream/stable
+=======
+    image: nicolasdorier/btcpayserver:1.0.1.73
 >>>>>>> upstream/stable
     expose:
     - "49392"
@@ -77,7 +81,7 @@ services:
     volumes:
     - "litecoin_datadir:/data"
   clightning_litecoin:
-    image: nicolasdorier/clightning
+    image: nicolasdorier/clightning:0.0.0.2
     container_name: btcpayserver_clightning_litecoin
     restart: always
     environment:
@@ -112,7 +116,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning
+    image: nicolasdorier/clightning:0.0.0.2
     container_name: btcpayserver_clightning_bitcoin
     restart: always
     environment:
