@@ -4,12 +4,16 @@ services:
     restart: always
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.1.71
 =======
     image: nicolasdorier/btcpayserver:1.0.1.72
 >>>>>>> upstream/stable
 =======
     image: nicolasdorier/btcpayserver:1.0.1.73
+>>>>>>> upstream/stable
+=======
+    image: nicolasdorier/btcpayserver:1.0.1.77
 >>>>>>> upstream/stable
     expose:
     - "49392"
@@ -42,7 +46,7 @@ services:
     - "80:49392"
   nbxplorer:
     restart: always
-    image: nicolasdorier/nbxplorer:1.0.1.24
+    image: nicolasdorier/nbxplorer:1.0.1.25
     expose:
     - "32838"
     environment:
