@@ -7,6 +7,7 @@ services:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.1.71
 =======
     image: nicolasdorier/btcpayserver:1.0.1.72
@@ -23,6 +24,9 @@ services:
 =======
     image: nicolasdorier/btcpayserver:1.0.1.80
 >>>>>>> upstream/stable
+=======
+    image: nicolasdorier/btcpayserver:1.0.1.81
+>>>>>>> upstream/master
     expose:
     - "49392"
     environment:
@@ -55,7 +59,11 @@ services:
     - "80:49392"
   nbxplorer:
     restart: always
+<<<<<<< HEAD
     image: nicolasdorier/nbxplorer:1.0.1.32
+=======
+    image: nicolasdorier/nbxplorer:1.0.1.33
+>>>>>>> upstream/master
     expose:
     - "32838"
     environment:
@@ -129,7 +137,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning:0.0.0.3
+    image: nicolasdorier/clightning:0.0.0.5
     container_name: btcpayserver_clightning_bitcoin
     restart: always
     environment:
