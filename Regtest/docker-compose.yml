@@ -3,7 +3,7 @@ version: "3"
 services:
 
   btcpayserver:
-    image: junglelab/btcpayjungle:1.0.1.80
+    image: junglelab/btcpayjungle:1.0.1.81
     ports:
       - 8080:49392
     expose:
