@@ -4,11 +4,7 @@ services:
 
   btcpayserver:
     restart: always
-<<<<<<< HEAD
-    image: nicolasdorier/btcpayserver:1.0.1.80
-=======
-    image: nicolasdorier/btcpayserver:1.0.1.81
->>>>>>> upstream/master
+    image: junglelab/btcpayjungle:1.0.1.84
     expose:
       - "49392"
     environment:
@@ -27,7 +23,7 @@ services:
       # Let's encrypt settings
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
-      
+
     links:
       - nbxplorer
       - postgres
@@ -38,11 +34,15 @@ services:
   nbxplorer:
     restart: always
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: nicolasdorier/nbxplorer:1.0.1.32
 =======
     image: nicolasdorier/nbxplorer:1.0.1.33
 >>>>>>> upstream/master
-    expose: 
+=======
+    image: nicolasdorier/nbxplorer:1.0.1.34
+>>>>>>> upstream/stable
+    expose:
       - "32838"
     environment:
       NBXPLORER_NETWORK: ${NBITCOIN_NETWORK:-regtest}
