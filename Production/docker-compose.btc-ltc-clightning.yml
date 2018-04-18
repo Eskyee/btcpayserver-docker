@@ -46,7 +46,7 @@ services:
     - nginx
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.85
+    image: junglelab/btcpayjungle:1.0.1.86
     expose:
     - "49392"
     environment:
