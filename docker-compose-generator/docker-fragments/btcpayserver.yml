@@ -4,7 +4,7 @@ services:
 
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.91
+    image: junglelab/btcpayjungle:1.0.1.93
     expose:
       - "49392"
     environment:
@@ -33,8 +33,13 @@ services:
 
   nbxplorer:
     restart: always
+<<<<<<< HEAD
     image: nicolasdorier/nbxplorer:1.0.2.0
     expose:
+=======
+    image: nicolasdorier/nbxplorer:1.0.2.2
+    expose:
+>>>>>>> upstream/master
       - "32838"
     environment:
       NBXPLORER_NETWORK: ${NBITCOIN_NETWORK:-regtest}
