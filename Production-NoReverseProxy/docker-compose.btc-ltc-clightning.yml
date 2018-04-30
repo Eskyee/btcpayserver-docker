@@ -2,7 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: always
-    image: junglelab/btcpayjungle:1.0.1.93
+    image: junglelab/btcpayjungle:1.0.1.96
     expose:
     - "49392"
     environment:
@@ -14,6 +14,7 @@ services:
       VIRTUAL_NETWORK: nginx-proxy
       VIRTUAL_PORT: 49392
       VIRTUAL_HOST: ${BTCPAY_HOST}
+      SSL_POLICY: Mozilla-Modern
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
       BTCPAY_LTCEXPLORERURL: http://nbxplorer:32838/
@@ -74,7 +75,7 @@ services:
     volumes:
     - "litecoin_datadir:/data"
   clightning_litecoin:
-    image: nicolasdorier/clightning:0.0.0.9
+    image: nicolasdorier/clightning:0.0.0.11
     container_name: btcpayserver_clightning_litecoin
     restart: always
     environment:
@@ -109,7 +110,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning:0.0.0.9
+    image: nicolasdorier/clightning:0.0.0.11
     container_name: btcpayserver_clightning_bitcoin
     restart: always
     environment:
