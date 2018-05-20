@@ -3,8 +3,8 @@ version: "3"
 services:
 
   btcpayserver:
-    restart: always
-    image: junglelab/btcpayjungle:1.0.2.21
+    restart: unless-stopped
+    image: junglelab/btcpayjungle:1.0.2.22
     expose:
       - "49392"
     environment:
@@ -33,7 +33,7 @@ services:
      - "nbxplorer_datadir:/root/.nbxplorer"
 
   nbxplorer:
-    restart: always
+    restart: unless-stopped
     image: nicolasdorier/nbxplorer:1.0.2.7
     expose:
       - "32838"
@@ -44,7 +44,7 @@ services:
       - "nbxplorer_datadir:/datadir"
 
   postgres:
-    restart: always
+    restart: unless-stopped
     image:  postgres:9.6.5
     volumes:
       - "postgres_datadir:/var/lib/postgresql/data"
