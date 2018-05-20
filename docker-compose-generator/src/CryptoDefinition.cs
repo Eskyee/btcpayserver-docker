@@ -38,7 +38,13 @@ namespace DockerGenerator
 					CryptoFragment = "bitcoin",
 					CLightningFragment = "bitcoin-clightning",
 				},
-			};
+				new CryptoDefinition()
+				{
+					Crypto = "btg",
+					CryptoFragment = "bgold",
+					CLightningFragment = null,
+				}
+            };
 		}
     }
 }
