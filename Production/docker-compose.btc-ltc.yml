@@ -46,7 +46,7 @@ services:
     - nginx-gen
   btcpayserver:
     restart: unless-stopped
-    image: junglelab/btcpayjungle:1.0.2.34
+    image: junglelab/btcpayjungle:1.0.2.36
     expose:
     - "49392"
     environment:
@@ -60,7 +60,7 @@ services:
       VIRTUAL_HOST: ${BTCPAY_HOST}
       SSL_POLICY: Mozilla-Modern
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-<no value>}
       BTCPAY_LTCEXPLORERURL: http://nbxplorer:32838/
       BTCPAY_CHAINS: "ltc,btc"
       BTCPAY_BTCEXPLORERURL: http://nbxplorer:32838/
@@ -72,7 +72,7 @@ services:
     - "nbxplorer_datadir:/root/.nbxplorer"
   nbxplorer:
     restart: unless-stopped
-    image: nicolasdorier/nbxplorer:1.0.2.8
+    image: nicolasdorier/nbxplorer:1.0.2.9
     expose:
     - "32838"
     environment:
