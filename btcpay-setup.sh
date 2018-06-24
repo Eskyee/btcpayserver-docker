@@ -49,7 +49,7 @@ This will be used to properly setup HTTPS via let's encrypt.
 
 Environment variables:
     BTCPAY_HOST: The hostname of your website (eg. btcpay.example.com)
-    LETSENCRYPT_EMAIL: A mail will be sent to this address if certificate expires and fail to renew automatically (eg. me@example.com, Default:me@example.com)
+    LETSENCRYPT_EMAIL: A mail will be sent to this address if certificate expires and fail to renew automatically (eg. me@example.com)
     NBITCOIN_NETWORK: The type of network to use (eg. mainnet, testnet or regtest. Default: mainnet)
     LIGHTNING_ALIAS: An alias for your lightning network node if used
     BTCPAYGEN_CRYPTO1: First supported crypto currency (eg. btc, ltc, none. Default: btc)
@@ -119,7 +119,9 @@ if [ ! -z $BTCPAY_DOCKER_COMPOSE ] && [ ! -z $DOWNLOAD_ROOT ] && [ -z $BTCPAYGEN
 fi
 #########################################################
 
-: "${LETSENCRYPT_EMAIL:=me@example.com}"
+[[ $LETSENCRYPT_EMAIL == *@example.com ]] && echo "LETSENCRYPT_EMAIL ends with @example.com, setting to empty email instead" && LETSENCRYPT_EMAIL=""
+
+: "${LETSENCRYPT_EMAIL:=}"
 : "${BTCPAYGEN_OLD_PREGEN:=false}"
 : "${NBITCOIN_NETWORK:=mainnet}"
 : "${BTCPAYGEN_CRYPTO1:=btc}"
@@ -215,9 +217,19 @@ fi
 " > /etc/profile.d/btcpay-env.sh
 chmod +x /etc/profile.d/btcpay-env.sh
 
-. /etc/profile.d/btcpay-env.sh
-
 echo -e "BTCPay Server environment variables successfully saved in /etc/profile.d/btcpay-env.sh\n"
+
+# Set .env file
+touch $BTCPAY_ENV_FILE
+echo "
+BTCPAY_HOST=$BTCPAY_HOST
+ACME_CA_URI=$ACME_CA_URI
+NBITCOIN_NETWORK=$NBITCOIN_NETWORK
+LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
+LIGHTNING_ALIAS=$LIGHTNING_ALIAS" > $BTCPAY_ENV_FILE
+echo -e "BTCPay Server docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
+
+. /etc/profile.d/btcpay-env.sh
 
 if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; then
     apt-get update 2>error
@@ -255,16 +267,6 @@ if ! [ -x "$(command -v docker-compose)" ]; then
 else
     echo -e "docker-compose is already installed\n"
 fi
-
-# Set .env file
-touch $BTCPAY_ENV_FILE
-echo "
-BTCPAY_HOST=$BTCPAY_HOST
-ACME_CA_URI=$ACME_CA_URI
-NBITCOIN_NETWORK=$NBITCOIN_NETWORK
-LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
-LIGHTNING_ALIAS=$LIGHTNING_ALIAS" > $BTCPAY_ENV_FILE
-echo -e "BTCPay Server docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
 
 # Generate the docker compose in BTCPAY_DOCKER_COMPOSE
 . ./build.sh

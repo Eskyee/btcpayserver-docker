@@ -46,7 +46,7 @@ services:
     - nginx-gen
   btcpayserver:
     restart: unless-stopped
-    image: junglelab/btcpayjungle:1.0.2.34
+    image: junglelab/btcpayjungle:1.0.2.36
     expose:
     - "49392"
     environment:
@@ -60,7 +60,7 @@ services:
       VIRTUAL_HOST: ${BTCPAY_HOST}
       SSL_POLICY: Mozilla-Modern
       LETSENCRYPT_HOST: ${BTCPAY_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-yourname@example.com}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-<no value>}
       BTCPAY_CHAINS: "btc"
       BTCPAY_BTCEXPLORERURL: http://nbxplorer:32838/
       BTCPAY_BTCLIGHTNING: "/etc/clightning_bitcoin/lightning-rpc"
@@ -74,7 +74,7 @@ services:
     - "clightning_bitcoin_datadir:/etc/clightning_bitcoin"
   nbxplorer:
     restart: unless-stopped
-    image: nicolasdorier/nbxplorer:1.0.2.8
+    image: nicolasdorier/nbxplorer:1.0.2.9
     expose:
     - "32838"
     environment:
@@ -109,7 +109,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning:0.0.0.20
+    image: nicolasdorier/clightning:0.0.0.23
     container_name: btcpayserver_clightning_bitcoin
     restart: unless-stopped
     environment:
