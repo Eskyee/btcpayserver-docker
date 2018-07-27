@@ -2,7 +2,7 @@ version: "3"
 services:
   btcpayserver:
     restart: unless-stopped
-    image: junglelab/btcpayjungle:1.0.2.72
+    image: junglelab/btcpayjungle:1.0.2.79
     expose:
     - "49392"
     environment:
@@ -32,7 +32,7 @@ services:
     - "80:49392"
   nbxplorer:
     restart: unless-stopped
-    image: nicolasdorier/nbxplorer:1.0.2.15
+    image: nicolasdorier/nbxplorer:1.0.2.16
     expose:
     - "32838"
     environment:
