@@ -46,7 +46,11 @@ services:
     - nginx-gen
   btcpayserver:
     restart: unless-stopped
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.2.85
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.87
+>>>>>>> upstream/stable
     expose:
     - "49392"
     environment:
