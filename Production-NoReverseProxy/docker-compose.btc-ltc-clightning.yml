@@ -4,12 +4,16 @@ services:
     restart: unless-stopped
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.2.85
 =======
     image: nicolasdorier/btcpayserver:1.0.2.87
 >>>>>>> upstream/stable
 =======
     image: nicolasdorier/btcpayserver:1.0.2.91
+>>>>>>> upstream/stable
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.93
 >>>>>>> upstream/stable
     expose:
     - "49392"
