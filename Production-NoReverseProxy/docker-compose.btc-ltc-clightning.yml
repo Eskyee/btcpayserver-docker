@@ -6,6 +6,7 @@ services:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.2.85
 =======
     image: nicolasdorier/btcpayserver:1.0.2.86
@@ -18,6 +19,9 @@ services:
 >>>>>>> upstream/master
 =======
     image: nicolasdorier/btcpayserver:1.0.2.93
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.94
 >>>>>>> upstream/master
     expose:
     - "49392"
@@ -54,7 +58,7 @@ services:
     - "80:49392"
   nbxplorer:
     restart: unless-stopped
-    image: nicolasdorier/nbxplorer:1.0.2.23
+    image: nicolasdorier/nbxplorer:1.0.2.31
     expose:
     - "32838"
     environment:
