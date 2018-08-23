@@ -7,6 +7,7 @@ services:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.2.85
 =======
     image: nicolasdorier/btcpayserver:1.0.2.86
@@ -22,6 +23,9 @@ services:
 >>>>>>> upstream/master
 =======
     image: nicolasdorier/btcpayserver:1.0.2.94
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.96
 >>>>>>> upstream/master
     expose:
     - "49392"
