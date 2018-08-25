@@ -10,15 +10,21 @@ You can log into [Azure](https://azure.microsoft.com/en-us/account/) with your M
 
 Final installation steps:
 
-* Fill in the options: Resource Group, Admin Password, Network
+* Fill in the options: Resource Group
 * Click 'Purchase' to confirm
 * (Wait for deployment)
 * View the deployment (in Notifications or Resource Groups)
-* SSH into it: `ssh SSH-USERNAME@SSH-SERVER-AZURE-DNS`
-* (At your domain registrar, make sure you have [DNS](https://github.com/btcpayserver/btcpayserver-doc/blob/master/ChangeDomain.md#setting-up-your-dns-record) pointing your domain at your Azure deployment's IP)
-* Run `sudo -i; ./change-domain.sh MYDOMAIN.com`
+* Verify you can connect to your instance with a browser: `https://SERVER-AZURE-DNS/`
+* At your domain registrar, make sure you have [DNS](https://github.com/btcpayserver/btcpayserver-doc/blob/master/ChangeDomain.md#setting-up-your-dns-record) pointing your domain at your Azure deployment's IP.
+* Browse to `https://SERVER-AZURE-DNS/`
+* Register a new account (this account will be granted server administrator rights)
+* Go to `https://SERVER-AZURE-DNS/server/maintenance`
+* Enter your domain name and click on confirm
+* (Wait 1 to 5 minutes)
 
-That's it!
+That's it, you can now browse to `https://btcpay.YOUR-DOMAIN/` to create your store!
+
+For advanced users, you can connect via SSH with information on `https://btcpay.YOUR-DOMAIN/server/services/ssh`, then you can:
 
 * Run `docker ps` and `docker logs xxx` to view running processes
 * Run `btcpay-down.sh` and `btcpay-up.sh` to stop and start the BTCPayServer
@@ -53,9 +59,11 @@ Note: The setup process can be time consuming, but is heavily automated to make 
 
 You can also install BTCPayServer on your own machine or VPS instance.
 
-First, make sure you have a domain name pointing to your host, with ports `443` and `80` externally accessible (and perhaps additional ports like `9735` and `9736` for Bitcoin and Litecoin lightning).
+The officially supported setup is driven by Docker (and Docker-Compose).
 
-Let's assume it is `btcpay.example.com`.
+First, make sure you have a domain name pointing to your host (CNAME), with ports `443` and `80` externally accessible (and perhaps additional ports like `9735` and `9736` for Bitcoin and Litecoin lightning). Otherwise, you will have to set it manually by running `changedomain.sh`.
+
+Let's assume it is `btcpay.EXAMPLE.com`.
 
 If you want to support Litecoin, Bitcoin, and C-Lightning, and want HTTPS automatically configured by Nginx:
 
@@ -72,7 +80,7 @@ git clone https://github.com/btcpayserver/btcpayserver-docker
 cd btcpayserver-docker
 
 # Run btcpay-setup.sh with the right parameters
-export BTCPAY_HOST="btcpay.example.com"
+export BTCPAY_HOST="btcpay.EXAMPLE.com"
 export NBITCOIN_NETWORK="mainnet"
 export BTCPAYGEN_CRYPTO1="btc"
 export BTCPAYGEN_CRYPTO2="ltc"
@@ -91,6 +99,11 @@ exit
 * Setup environment variables to use BTCPay utilities
 * Add BTCPay utilities in /usr/bin
 * Start BTCPay
+
+You can read [the article](https://medium.com/@BtcpayServer/hosting-btcpay-server-for-cheap-2b27761fdb9d) for step by step instructions.
+
+[![Docker automated build](https://img.shields.io/docker/automated/nicolasdorier/btcpayserver.svg)](https://hub.docker.com/r/nicolasdorier/btcpayserver/)
+
 
 # Environment variables
 
@@ -138,6 +151,7 @@ Available `BTCPAYGEN_ADDITIONAL_FRAGMENTS` currently are:
 * [opt-save-storage](docker-compose-generator/docker-fragments/opt-save-storage.yml) will keep around 1 year of blocks (prune BTC for 100 GB)
 * [opt-save-storage-s](docker-compose-generator/docker-fragments/opt-save-storage-s.yml) will keep around 6 months of blocks (prune BTC for 50 GB)
 * [opt-save-storage-xxs](docker-compose-generator/docker-fragments/opt-save-storage-xxs.yml) will keep around 2 weeks of blocks (prune BTC for 5 GB) (lightning not supported)
+* [opt-lnd-autopilot](docker-compose-generator/docker-fragments/opt-lnd-autopilot.yml) will activate auto pilot on LND. (5 channels, 60% of allocation)
 
 You can also create your own [custom fragments](#how-can-i-customize-the-generated-docker-compose-file).
 
@@ -242,10 +256,10 @@ WantedBy=multi-user.target
 `.env` (`$BTCPAY_ENV_FILE`) contains environment variables passed to the containers managed by your docker-compose:
 
 ```ini
-BTCPAY_HOST=btcpay.example.com
+BTCPAY_HOST=btcpay.EXAMPLE.com
 ACME_CA_URI=https://acme-v01.api.letsencrypt.org/directory
 NBITCOIN_NETWORK=mainnet
-LETSENCRYPT_EMAIL=me@example.com
+LETSENCRYPT_EMAIL=me@EXAMPLE.com
 BTCPAY_SSHTRUSTEDFINGERPRINTS=SHA256:eSCD7NtQ/Q6IBl2iRB9caAQ3lDZd8s8iUL6SdeNnhpA
 BTCPAY_SSHKEYFILE=/datadir/id_rsa
 ```
@@ -262,7 +276,7 @@ When testing your coin, **DO NOT USE `build.sh`**, since it uses a pre-built doc
 Instead, install [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/windows) and run:
 
 ```bash
-BTCPAYGEN_CRYPTO1="xxx"
+BTCPAYGEN_CRYPTO1="EXAMPLE-COIN"
 BTCPAYGEN_SUBNAME="test"
 cd docker-compose-generator/src
 dotnet run
