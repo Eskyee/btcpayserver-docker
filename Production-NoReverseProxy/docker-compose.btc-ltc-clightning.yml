@@ -121,7 +121,7 @@ services:
     volumes:
     - "litecoin_datadir:/data"
   clightning_litecoin:
-    image: nicolasdorier/clightning:aeafe4dbe7d5c61f664c18417698866b0d70252f-2
+    image: nicolasdorier/clightning:634f19a7b230edc686be56ab950b80784e56252c
     container_name: btcpayserver_clightning_litecoin
     restart: unless-stopped
     environment:
@@ -148,7 +148,7 @@ services:
   bitcoind:
     restart: unless-stopped
     container_name: btcpayserver_bitcoind
-    image: nicolasdorier/docker-bitcoin:0.16.0
+    image: nicolasdorier/docker-bitcoin:0.16.3
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
@@ -161,7 +161,7 @@ services:
     volumes:
     - "bitcoin_datadir:/data"
   clightning_bitcoin:
-    image: nicolasdorier/clightning:aeafe4dbe7d5c61f664c18417698866b0d70252f-2
+    image: nicolasdorier/clightning:634f19a7b230edc686be56ab950b80784e56252c
     container_name: btcpayserver_clightning_bitcoin
     restart: unless-stopped
     environment:
