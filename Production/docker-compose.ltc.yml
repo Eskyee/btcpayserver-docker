@@ -58,6 +58,7 @@ services:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     image: junglelab/btcpayjungle:1.0.2.85
 =======
     image: nicolasdorier/btcpayserver:1.0.2.86
@@ -94,6 +95,9 @@ services:
 >>>>>>> upstream/master
 =======
     image: nicolasdorier/btcpayserver:1.0.2.103
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.105
 >>>>>>> upstream/master
     expose:
     - "49392"
@@ -143,7 +147,7 @@ services:
   litecoind:
     restart: unless-stopped
     container_name: btcpayserver_litecoind
-    image: nicolasdorier/docker-litecoin:0.15.1
+    image: nicolasdorier/docker-litecoin:0.16.3
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
