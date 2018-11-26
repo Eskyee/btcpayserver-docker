@@ -192,15 +192,8 @@ export BTCPAY_DOCKER_COMPOSE=\"$BTCPAY_DOCKER_COMPOSE\"
 export BTCPAY_BASE_DIRECTORY=\"$BTCPAY_BASE_DIRECTORY\"
 export BTCPAY_ENV_FILE=\"$BTCPAY_ENV_FILE\"
 export BTCPAY_HOST_SSHKEYFILE=\"$BTCPAY_HOST_SSHKEYFILE\"
-if cat \$BTCPAY_ENV_FILE &> /dev/null; then
-export BTCPAY_HOST=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^BTCPAY_HOST=\(.*\)$/\1/p')\"
-export BTCPAY_IMAGE=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^BTCPAY_IMAGE=\(.*\)$/\1/p')\"
-export LETSENCRYPT_EMAIL=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^LETSENCRYPT_EMAIL=\(.*\)$/\1/p')\"
-export NBITCOIN_NETWORK=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^NBITCOIN_NETWORK=\(.*\)$/\1/p')\"
-export LIGHTNING_ALIAS=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^LIGHTNING_ALIAS=\(.*\)$/\1/p')\"
-export ACME_CA_URI=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^ACME_CA_URI=\(.*\)$/\1/p')\"
-export BTCPAY_SSHKEYFILE=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^BTCPAY_SSHKEYFILE=\(.*\)$/\1/p')\"
-export BTCPAY_SSHTRUSTEDFINGERPRINTS=\"\$(cat \$BTCPAY_ENV_FILE | sed -n 's/^BTCPAY_SSHTRUSTEDFINGERPRINTS=\(.*\)$/\1/p')\"
+if cat \"\$BTCPAY_ENV_FILE\" &> /dev/null; then
+    export \$(grep -v '^#' \"\$BTCPAY_ENV_FILE\" | xargs)
 fi
 " > /etc/profile.d/btcpay-env.sh
 chmod +x /etc/profile.d/btcpay-env.sh
@@ -230,33 +223,31 @@ if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; t
         ca-certificates \
         software-properties-common \
         2>error
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    if [ $(lsb_release -cs) == "bionic" ]; then
-        # Bionic not in the repo yet, see https://linuxconfig.org/how-to-install-docker-on-ubuntu-18-04-bionic-beaver
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu artful stable"
-    else
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    if ! [ -x "$(command -v docker)" ]; then
+        echo "Trying to install docker..."
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        chmod +x get-docker.sh
+        sh get-docker.sh
+        rm get-docker.sh
     fi
-    apt-get update 2>error
+    if ! [ -x "$(command -v docker-compose)" ]; then
+        if [[ "$(uname -m)" == "x86_64" ]]; then
+            DOCKER_COMPOSE_DOWNLOAD="https://github.com/docker/compose/releases/download/1.17.1/docker-compose-$(uname -s)-$(uname -m)"
+            echo "Trying to install docker-compose by downloading on $DOCKER_COMPOSE_DOWNLOAD"
+            curl -L "$DOCKER_COMPOSE_DOWNLOAD" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+        fi
+    fi
 fi
 
 if ! [ -x "$(command -v docker)" ]; then
-    if apt-get install -y docker-ce ; then
-        echo "Docker installed"
-    else
-        echo "Failed to install docker"
-        return
-    fi
-else
-    echo -e "docker is already installed\n"
+    echo "Failed to install docker"
+    return
 fi
 
-# Install docker-compose
 if ! [ -x "$(command -v docker-compose)" ]; then
-    curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-else
-    echo -e "docker-compose is already installed\n"
+    echo "Failed to install docker-compose"
+    return
 fi
 
 # Generate the docker compose in BTCPAY_DOCKER_COMPOSE
@@ -292,6 +283,7 @@ ExecReload=/bin/bash -c '. /etc/profile.d/btcpay-env.sh && cd \"\$(dirname \$BTC
 WantedBy=multi-user.target" > /etc/systemd/system/btcpayserver.service
 
 echo -e "BTCPay Server systemd configured in /etc/systemd/system/btcpayserver.service\n"
+echo "BTCPay Server starting... this can take 5 to 10 minutes..."
 systemctl daemon-reload
 systemctl enable btcpayserver
 systemctl start btcpayserver
