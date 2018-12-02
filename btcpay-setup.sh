@@ -216,13 +216,15 @@ echo -e "BTCPay Server docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
 . /etc/profile.d/btcpay-env.sh
 
 if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; then
-    apt-get update 2>error
-    apt-get install -y \
-        curl \
-        apt-transport-https \
-        ca-certificates \
-        software-properties-common \
-        2>error
+    if ! [ -x "$(command -v curl)" ]; then
+        apt-get update 2>error
+        apt-get install -y \
+            curl \
+            apt-transport-https \
+            ca-certificates \
+            software-properties-common \
+            2>error
+    fi
     if ! [ -x "$(command -v docker)" ]; then
         echo "Trying to install docker..."
         curl -fsSL https://get.docker.com -o get-docker.sh
@@ -232,10 +234,17 @@ if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; t
     fi
     if ! [ -x "$(command -v docker-compose)" ]; then
         if [[ "$(uname -m)" == "x86_64" ]]; then
-            DOCKER_COMPOSE_DOWNLOAD="https://github.com/docker/compose/releases/download/1.17.1/docker-compose-$(uname -s)-$(uname -m)"
-            echo "Trying to install docker-compose by downloading on $DOCKER_COMPOSE_DOWNLOAD"
+            DOCKER_COMPOSE_DOWNLOAD="https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m`"
+            echo "Trying to install docker-compose by downloading on $DOCKER_COMPOSE_DOWNLOAD ($(uname -m))"
             curl -L "$DOCKER_COMPOSE_DOWNLOAD" -o /usr/local/bin/docker-compose
             chmod +x /usr/local/bin/docker-compose
+        else
+            echo "Trying to install docker-compose by using the docker-compose-builder ($(uname -m))"
+            ! [ -d "dist" ] && mkdir dist
+            docker run --rm -ti -v "$(pwd)/dist:/dist" btcpayserver/docker-compose-builder:1.23.2
+            mv dist/docker-compose /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+            rm -rf "dist"
         fi
     fi
 fi
