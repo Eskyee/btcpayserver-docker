@@ -46,7 +46,63 @@ services:
     - nginx-gen
   btcpayserver:
     restart: unless-stopped
-    image: junglelab/btcpayjungle:1.0.2.106
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    image: junglelab/btcpayjungle:1.0.2.85
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.86
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.87
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.91
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.93
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.94
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.96
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.98
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.99
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.100
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.101
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.102
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.103
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.105
+>>>>>>> upstream/master
+=======
+    image: nicolasdorier/btcpayserver:1.0.2.106
+>>>>>>> upstream/master
     expose:
     - "49392"
     environment:
