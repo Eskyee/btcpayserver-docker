@@ -63,7 +63,8 @@ Environment variables:
     BTCPAYGEN_DOCKER_IMAGE: Allows you to specify a custom docker image for the generator (Default: btcpayserver/docker-compose-generator)
     BTCPAY_IMAGE: Allows you to specify the btcpayserver docker image to use over the default version. (Default: current stable version of btcpayserver)
 Add-on specific variables:
-    LIBREPATRON_HOST: If libre patron is activated, The hostname of your libre patron website (eg. librepatron.example.com)
+    LIBREPATRON_HOST: If libre patron is activated with opt-add-librepatron, the hostname of your libre patron website (eg. librepatron.example.com)
+    WOOCOMMERCE_HOST: If woocommerce is activated with opt-add-woocommerce, the hostname of your woocommerce website (eg. store.example.com)
 END
 }
 
@@ -140,6 +141,7 @@ echo "
 Parameters passed:
 BTCPAY_HOST:$BTCPAY_HOST
 LIBREPATRON_HOST:$LIBREPATRON_HOST
+WOOCOMMERCE_HOST:$WOOCOMMERCE_HOST
 BTCPAY_HOST_SSHKEYFILE:$BTCPAY_HOST_SSHKEYFILE
 LETSENCRYPT_EMAIL:$LETSENCRYPT_EMAIL
 NBITCOIN_NETWORK:$NBITCOIN_NETWORK
@@ -218,7 +220,8 @@ LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
 LIGHTNING_ALIAS=$LIGHTNING_ALIAS
 BTCPAY_SSHTRUSTEDFINGERPRINTS=$BTCPAY_SSHTRUSTEDFINGERPRINTS
 BTCPAY_SSHKEYFILE=$BTCPAY_SSHKEYFILE
-LIBREPATRON_HOST=$LIBREPATRON_HOST" > $BTCPAY_ENV_FILE
+LIBREPATRON_HOST=$LIBREPATRON_HOST
+WOOCOMMERCE_HOST=$WOOCOMMERCE_HOST" > $BTCPAY_ENV_FILE
 echo -e "BTCPay Server docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
 
 . /etc/profile.d/btcpay-env.sh
@@ -365,15 +368,8 @@ if [[ -f "$BTCPAY_HOST_SSHKEYFILE" ]]; then
     docker cp "$BTCPAY_HOST_SSHKEYFILE" $(docker ps --filter "name=_btcpayserver_" -q):$BTCPAY_SSHKEYFILE
 fi
 
+cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"  
+. helpers.sh
+install_tooling
+
 cd $ORIGINAL_DIRECTORY
-
-for scriptname in *.sh; do
-    if [ "$scriptname" == "build.sh" -o "$scriptname" == "build-pregen.sh" ] ; then
-        continue;
-    fi
-    echo "Adding symlink of $scriptname to /usr/bin"
-    chmod +x $scriptname
-    rm /usr/bin/$scriptname &> /dev/null
-    ln -s "$(pwd)/$scriptname" /usr/bin
-done
-

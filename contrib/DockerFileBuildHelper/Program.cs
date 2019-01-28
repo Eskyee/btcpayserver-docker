@@ -14,23 +14,30 @@ namespace DockerFileBuildHelper
 {
     class Program
     {
+        class Options
+        {
+            public string BuildAllScriptOutput { get; set; }
+            public string READMEOutput { get; set; }
+        }
         static int Main(string[] args)
         {
-            string outputFile = null;
+            var opts = new Options();
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] == "-o")
-                    outputFile = args[i + 1];
+                    opts.BuildAllScriptOutput = args[i + 1];
+                if (args[i] == "-omd")
+                    opts.READMEOutput = args[i + 1];
             }
-            return new Program().Run(outputFile) ? 0 : 1;
+            return new Program().Run(opts) ? 0 : 1;
         }
 
-        private bool Run(string outputFile)
+        private bool Run(Options options)
         {
             var fragmentDirectory = Path.GetFullPath(Path.Combine(FindRoot("contrib"), "..", "docker-compose-generator", "docker-fragments"));
             List<Task<bool>> downloading = new List<Task<bool>>();
             List<DockerInfo> dockerInfos = new List<DockerInfo>();
-            foreach(var image in new[] 
+            foreach (var image in new[]
             {
                 Image.Parse("btcpayserver/docker-compose-generator"),
                 Image.Parse("btcpayserver/docker-compose-builder:1.23.2"),
@@ -77,7 +84,7 @@ namespace DockerFileBuildHelper
                     mightBeUnavailable = true;
                 }
                 if (info.DockerFilePathARM32v7 != null)
-                 {
+                {
                     var dockerFile = DockerFile.Parse(info.DockerFilePathARM32v7);
                     builder.AppendLine($"# {info.GetGithubLinkOf(dockerFile.DockerFullPath)}");
                     builder.AppendLine($"[[ \"$(uname -m)\" == \"armv7l\" ]] && DOCKERFILE=\"{dockerFile.DockerFullPath}\"");
@@ -88,7 +95,7 @@ namespace DockerFileBuildHelper
                     builder.AppendLine($"# {info.GetGithubLinkOf(dockerFile.DockerFullPath)}");
                     builder.AppendLine($"[[ \"$(uname -m)\" == \"aarch64\" ]] && DOCKERFILE=\"{dockerFile.DockerFullPath}\"");
                 }
-                if(mightBeUnavailable)
+                if (mightBeUnavailable)
                 {
                     builder.AppendLine($"if [[ \"$DOCKERFILE\" ]]; then");
                     builder.Indent++;
@@ -109,12 +116,83 @@ namespace DockerFileBuildHelper
                 builder.AppendLine();
             }
             var script = builder.ToString().Replace("\r\n", "\n");
-            if (string.IsNullOrEmpty(outputFile))
-                outputFile = "build-all.sh";
-            File.WriteAllText(outputFile, script);
-            Console.WriteLine($"Generated file \"{Path.GetFullPath(outputFile)}\"");
+            if (string.IsNullOrEmpty(options.BuildAllScriptOutput))
+                options.BuildAllScriptOutput = "build-all.sh";
+            File.WriteAllText(options.BuildAllScriptOutput, script);
+            Console.WriteLine($"Generated file \"{Path.GetFullPath(options.BuildAllScriptOutput)}\"");
+
+            if (!string.IsNullOrEmpty(options.READMEOutput))
+            {
+                var readme = File.ReadAllText(options.READMEOutput);
+                var start = readme.IndexOf("| Source |");
+                var end = start;
+                for (; end < readme.Length; end++)
+                {
+                    if (readme[end] == '\r' && readme[end + 1] == '\n' && readme[end + 2] != '|')
+                    {
+                        end += 2;
+                        break;
+                    }
+                    if (readme[end] == '\n' && readme[end + 1] != '|')
+                    {
+                        end += 1;
+                        break;
+                    }
+                }
+
+                StringBuilder tb = new StringBuilder();
+                tb.Append(readme.Substring(0, start));
+                tb.AppendLine("| Source | Image | Version | x64 | arm32v7 | links |");
+                tb.AppendLine("|---|---|---|:-:|:-:|:-:|");
+                dockerInfos = dockerInfos.OrderBy(i => i.Image.Source).ToList();
+
+                // Make sure bitcoin appears before shitcoin
+                PushToEnd(2, dockerInfos);
+                PushToEnd(2, dockerInfos);
+                PushToEnd(7, dockerInfos);
+                PushToEnd(7, dockerInfos);
+
+                foreach (var image in dockerInfos)
+                {
+                    string source = "*";
+                    if (image.Image.Source != null)
+                    {
+                        source = Path.GetFileName(image.Image.Source);
+                    }
+                    tb.Append($"| {source} | {image.Image.ToString(false)} | {image.Image.Tag} |");
+                    if (!string.IsNullOrEmpty(image.DockerFilePath))
+                    {
+                        tb.Append($" [✔️]({image.GetGithubLinkOf(image.DockerFilePath)}) |");
+                    }
+                    else
+                    {
+                        tb.Append($" ️❌ |");
+                    }
+                    if (!string.IsNullOrEmpty(image.DockerFilePathARM32v7))
+                    {
+                        tb.Append($" [✔️]({image.GetGithubLinkOf(image.DockerFilePathARM32v7)}) |");
+                    }
+                    else
+                    {
+                        tb.Append($" ️❌ |");
+                    }
+                    tb.AppendLine($" [Github]({image.GitLink}) - [DockerHub]({image.DockerHubLink}) |");
+                }
+                tb.Append(readme.Substring(end));
+                File.WriteAllText(options.READMEOutput, tb.ToString());
+            }
+
+
             return true;
         }
+
+        private void PushToEnd(int index, List<DockerInfo> dockerInfos)
+        {
+            var temp = dockerInfos[index];
+            dockerInfos.RemoveAt(index);
+            dockerInfos.Add(temp);
+        }
+
         HttpClient client = new HttpClient();
         private async Task<bool> CheckLink(DockerInfo info, string path)
         {
@@ -122,7 +200,7 @@ namespace DockerFileBuildHelper
                 return true;
             var link = info.GetGithubLinkOf(path);
             var resp = await client.GetAsync(link);
-            if(!resp.IsSuccessStatusCode)
+            if (!resp.IsSuccessStatusCode)
             {
                 Console.WriteLine($"\tBroken link detected for image {info.Image} ({link})");
                 return false;
@@ -145,6 +223,7 @@ namespace DockerFileBuildHelper
                     if (imageStr == null)
                         continue;
                     var image = Image.Parse(imageStr.ToString());
+                    image.Source = file;
                     yield return image;
                 }
             }
@@ -152,7 +231,10 @@ namespace DockerFileBuildHelper
         private DockerInfo GetDockerInfo(Image image)
         {
             DockerInfo dockerInfo = new DockerInfo();
-            switch (image.Name)
+            var name = $"{image.User}/{image.Name}";
+            bool firstTry = true;
+        retry:
+            switch (name)
             {
                 case "btglnd":
                     dockerInfo.DockerFilePath = "BTCPayServer.Dockerfile";
@@ -175,10 +257,61 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitLink = "https://github.com/Vutov/docker-bitcoin";
                     dockerInfo.GitRef = "master";
                     break;
-                case "clightning":
+                case "lightning":
                     dockerInfo.DockerFilePath = $"Dockerfile";
-                    dockerInfo.GitLink = "https://github.com/NicolasDorier/lightning";
+                    dockerInfo.DockerFilePathARM32v7 = "linuxarm32v7.Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/btcpayserver/lightning";
                     dockerInfo.GitRef = $"basedon-{image.Tag}";
+                    break;
+                case "groestlcoin/lightning":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/Groestlcoin/lightning";
+                    dockerInfo.GitRef = $"{image.Tag}";
+                    break;
+                case "lightning-charge":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/ElementsProject/lightning-charge";
+                    dockerInfo.GitRef = $"v{image.Tag.Replace("-standalone", "")}";
+                    break;
+                case "docker-bitcoinplus":
+                    dockerInfo.DockerFilePath = $"bitcoinplus/{image.Tag}/Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/ChekaZ/docker";
+                    dockerInfo.GitRef = "master";
+                    break;
+                case "groestlcoin-lightning-charge":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/Groestlcoin/groestlcoin-lightning-charge";
+                    dockerInfo.GitRef = $"v{image.Tag.Substring("version-".Length)}";
+                    break;
+                case "groestlcoin-spark":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/Groestlcoin/groestlcoin-spark";
+                    dockerInfo.GitRef = $"v{image.Tag.Substring("version-".Length)}-1";
+                    break;
+                case "librepatron":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/JeffVandrewJr/patron";
+                    dockerInfo.GitRef = $"v{image.Tag}";
+                    break;
+                case "isso":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/JeffVandrewJr/isso";
+                    dockerInfo.GitRef = $"patron.{image.Tag.Substring("atron.".Length)}";
+                    break;
+                case "docker-woocommerce":
+                    dockerInfo.DockerFilePath = $"Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/btcpayserver/docker-woocommerce";
+                    dockerInfo.GitRef = $"v{image.Tag}";
+                    break;
+                case "mariadb":
+                    dockerInfo.DockerFilePath = $"{image.Tag}/Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/docker-library/mariadb";
+                    dockerInfo.GitRef = $"master";
+                    break;
+                case "docker-trezarcoin":
+                    dockerInfo.DockerFilePath = $"trezarcoin/1.2.0/Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/ChekaZ/docker";
+                    dockerInfo.GitRef = "master";
                     break;
                 case "lnd":
                     dockerInfo.DockerFilePath = "linuxamd64.Dockerfile";
@@ -249,6 +382,7 @@ namespace DockerFileBuildHelper
                     break;
                 case "nginx":
                     dockerInfo.DockerFilePath = $"stable/stretch/Dockerfile";
+                    dockerInfo.DockerFilePathARM32v7 = $"stable/stretch/Dockerfile";
                     dockerInfo.GitLink = "https://github.com/nginxinc/docker-nginx";
                     dockerInfo.GitRef = $"master";
                     break;
@@ -292,7 +426,14 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitRef = $"v{image.Tag.Split('-')[0]}";
                     break;
                 default:
-                    return null;
+                    if (firstTry)
+                    {
+                        name = $"{image.Name}";
+                        firstTry = false;
+                        goto retry;
+                    }
+                    else
+                        return null;
             }
             dockerInfo.DockerHubLink = image.DockerHubLink;
             dockerInfo.Image = image;
