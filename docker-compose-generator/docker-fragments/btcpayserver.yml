@@ -4,7 +4,7 @@ services:
 
   btcpayserver:
     restart: unless-stopped
-    image: ${BTCPAY_IMAGE:-junglelab/btcpayjungle:1.0.3.65}
+    image: ${BTCPAY_IMAGE:-junglelab/btcpayjungle:1.0.3.68}
     expose:
       - "49392"
     environment:
