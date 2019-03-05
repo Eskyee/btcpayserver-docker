@@ -12,6 +12,12 @@
 
 : "${AZURE_STORAGE_CONTAINER:=public}"
 
+if [[ "$AZURE_STORAGE_CONNECTION_STRING" ]] && ! [ -x "$(command -v az)" ]; then
+    echo "You want to upload the utxoset to azure, but az is not installed. See https://docs.microsoft.com/en-us/cli/azure/ to install it."
+    exit
+fi
+
+echo "Closing down btcpay... it can take a while"
 btcpay-down.sh
 
 for i in /var/lib/docker/volumes/generated_bitcoin_datadir/_data/utxo-snapshot-*; do
@@ -23,11 +29,12 @@ rm /var/lib/docker/volumes/generated_bitcoin_datadir/_data/utxo-snapshot-*
 # Run only bitcoind and connect to it
 SCRIPT="$(cat save-utxo-set-in-bitcoind.sh)"
 cd "`dirname $BTCPAY_ENV_FILE`"
-docker-compose -f $BTCPAY_DOCKER_COMPOSE run -e "NBITCOIN_NETWORK=$NBITCOIN_NETWORK" bitcoind bash -c "$SCRIPT"
+docker-compose -f $BTCPAY_DOCKER_COMPOSE run --rm -e "NBITCOIN_NETWORK=$NBITCOIN_NETWORK" bitcoind bash -c "$SCRIPT"
 btcpay-up.sh
 
 echo "Calculating the hash of the tar file..."
 TAR_FILE="$(echo /var/lib/docker/volumes/generated_bitcoin_datadir/_data/utxo-snapshot-*)"
+echo "Tar file of size $(ls -s -h $TAR_FILE)"
 TAR_FILE_HASH="$(sha256sum "$TAR_FILE" | cut -d " " -f 1)"
 
 if [[ "$AZURE_STORAGE_CONNECTION_STRING" ]]; then
