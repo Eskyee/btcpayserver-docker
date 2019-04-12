@@ -55,6 +55,10 @@ There can be more dependencies if you support more than just standard Bitcoin tr
 
 Note: The setup process can be time consuming, but is heavily automated to make it a fun and easy experience.
 
+Take a look at how BTCPay works in a video below.
+
+[![How BTCPay Works](https://img.youtube.com/vi/nr0UNbz3AoQ/mqdefault.jpg)](https://www.youtube.com/watch?v=nr0UNbz3AoQ "How BTCPay Works")
+
 Here is a presentation of the global architecture at Advancing Bitcoin conference.
 
 [![BTCPay - Architecture overview](https://i.vimeocdn.com/video/758684368_520x252.jpg)](https://vimeo.com/316630434 "BTCPay - Architecture overview")
@@ -129,6 +133,7 @@ You can read [the article](https://medium.com/@BtcpayServer/hosting-btcpay-serve
 * `BTCPAY_SSHTRUSTEDFINGERPRINTS`: Optional, BTCPay will ensure that it is connecting to the expected SSH server by checking the host's public key against these fingerprints
 * `BTCPAYGEN_DOCKER_IMAGE`: Optional, Specify which generator image to use if you have customized the C# generator. Set to `btcpayserver/docker-compose-generator:local` to build the generator locally at runtime.
 * `BTCPAY_IMAGE`: Optional, Specify which btcpayserver image to use if you have a customized btcpayserver.
+* `BTCPAYGEN_EXCLUDE_FRAGMENTS`:  Semicolon-separated list of fragments you want to forcefully exclude (eg. `litecoin-clightning`)
 
 Additionally, there are specific environment variables for some addons:
 
