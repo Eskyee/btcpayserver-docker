@@ -165,16 +165,16 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.95/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.96/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.95/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.96/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-echo "Building btcpayserver/btcpayserver:1.0.3.95"
+echo "Building btcpayserver/btcpayserver:1.0.3.96"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.95
+git checkout v1.0.3.96
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.95" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.96" .
 cd - && cd ..
 
 
@@ -319,16 +319,16 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.38/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.39/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.38/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.39/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-echo "Building nicolasdorier/nbxplorer:2.0.0.38"
+echo "Building nicolasdorier/nbxplorer:2.0.0.39"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.0.0.38
+git checkout v2.0.0.39
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.38" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.39" .
 cd - && cd ..
 
 
