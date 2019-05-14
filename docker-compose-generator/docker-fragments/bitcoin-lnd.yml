@@ -17,6 +17,8 @@ services:
         rpclisten=127.0.0.1:10008
         rpclisten=0.0.0.0:10009
         bitcoin.node=bitcoind
+        bitcoind.rpcuser=lnd
+        bitcoind.rpcpass=afixedpasswordbecauselndsuckswithcookiefile
         bitcoind.rpchost=bitcoind:43782
         bitcoind.zmqpubrawblock=tcp://bitcoind:28332
         bitcoind.zmqpubrawtx=tcp://bitcoind:28333
@@ -38,7 +40,7 @@ services:
       - bitcoind
 
   lnd_bitcoin_rtl:
-    image: shahanafarooqui/rtl:0.3.0
+    image: shahanafarooqui/rtl:0.3.2
     restart: unless-stopped
     environment:
       LND_SERVER_URL: http://lnd_bitcoin:8080/v1
