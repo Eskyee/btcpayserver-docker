@@ -357,6 +357,12 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitLink = "https://github.com/dgarage/nbxplorer";
                     dockerInfo.GitRef = $"v{image.Tag}";
                     break;
+                case "btctransmuter":
+                    dockerInfo.DockerFilePath = "BtcTransmuter/Dockerfile.linuxamd64";
+                    dockerInfo.DockerFilePathARM32v7 = "BtcTransmuter/Dockerfile.linuxarm32v7";
+                    dockerInfo.GitLink = "https://github.com/btcpayserver/btctransmuter";
+                    dockerInfo.GitRef = $"v{image.Tag}";
+                    break;
                 case "dogecoin":
                     dockerInfo.DockerFilePath = $"dogecoin/{image.Tag}/Dockerfile";
                     dockerInfo.GitLink = "https://github.com/rockstardev/docker-bitcoin";
@@ -383,8 +389,8 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitRef = "master";
                     break;
                 case "litecoin":
-                    dockerInfo.DockerFilePath = $"Litecoin/{image.Tag}/linuxamd64.Dockerfile";
-                    dockerInfo.DockerFilePathARM32v7 = $"Litecoin/{image.Tag}/linuxarm32v7.Dockerfile";
+                    dockerInfo.DockerFilePath = $"Litecoin/{NoRevision(image.Tag)}/linuxamd64.Dockerfile";
+                    dockerInfo.DockerFilePathARM32v7 = $"Litecoin/{NoRevision(image.Tag)}/linuxarm32v7.Dockerfile";
                     dockerInfo.GitLink = "https://github.com/btcpayserver/dockerfile-deps";
                     dockerInfo.GitRef = $"Litecoin/{image.Tag}";
                     break;
@@ -453,7 +459,10 @@ namespace DockerFileBuildHelper
             dockerInfo.Image = image;
             return dockerInfo;
         }
-
+        string NoRevision(string str)
+        {
+            return str.Split('-').First();
+        }
         private YamlMappingNode ParseDocument(string fragment)
         {
             var input = new StringReader(File.ReadAllText(fragment));

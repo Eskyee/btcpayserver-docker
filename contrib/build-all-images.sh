@@ -165,16 +165,16 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.104/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.106/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.104/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.106/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-echo "Building btcpayserver/btcpayserver:1.0.3.104"
+echo "Building btcpayserver/btcpayserver:1.0.3.106"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.104
+git checkout v1.0.3.106
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.104" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.106" .
 cd - && cd ..
 
 
@@ -295,16 +295,16 @@ cd - && cd ..
 
 
 # Build litecoin
-# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.17.1/Litecoin/0.17.1/linuxamd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.17.1-1/Litecoin/0.17.1/linuxamd64.Dockerfile
 DOCKERFILE="Litecoin/0.17.1/linuxamd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.17.1/Litecoin/0.17.1/linuxarm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.17.1-1/Litecoin/0.17.1/linuxarm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Litecoin/0.17.1/linuxarm32v7.Dockerfile"
-echo "Building btcpayserver/litecoin:0.17.1"
+echo "Building btcpayserver/litecoin:0.17.1-1"
 git clone https://github.com/btcpayserver/dockerfile-deps litecoin
 cd litecoin
-git checkout Litecoin/0.17.1
+git checkout Litecoin/0.17.1-1
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/litecoin:0.17.1" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/litecoin:0.17.1-1" .
 cd - && cd ..
 
 
@@ -321,16 +321,16 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.41/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.48/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.41/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.48/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-echo "Building nicolasdorier/nbxplorer:2.0.0.41"
+echo "Building nicolasdorier/nbxplorer:2.0.0.48"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.0.0.41
+git checkout v2.0.0.48
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.41" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.48" .
 cd - && cd ..
 
 
@@ -402,27 +402,41 @@ docker build -f "$DOCKERFILE" -t "redis:5.0.2-alpine" .
 cd - && cd ..
 
 
+# Build btctransmuter
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.21/BtcTransmuter/Dockerfile.linuxamd64
+DOCKERFILE="BtcTransmuter/Dockerfile.linuxamd64"
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.21/BtcTransmuter/Dockerfile.linuxarm32v7
+[[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="BtcTransmuter/Dockerfile.linuxarm32v7"
+echo "Building btcpayserver/btctransmuter:0.0.21"
+git clone https://github.com/btcpayserver/btctransmuter btctransmuter
+cd btctransmuter
+git checkout v0.0.21
+cd "$(dirname $DOCKERFILE)"
+docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.21" .
+cd - && cd ..
+
+
 # Build librepatron
-# https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.35/Dockerfile
+# https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.37/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building jvandrew/librepatron:0.7.35"
+echo "Building jvandrew/librepatron:0.7.37"
 git clone https://github.com/JeffVandrewJr/patron librepatron
 cd librepatron
-git checkout v0.7.35
+git checkout v0.7.37
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "jvandrew/librepatron:0.7.35" .
+docker build -f "$DOCKERFILE" -t "jvandrew/librepatron:0.7.37" .
 cd - && cd ..
 
 
 # Build isso
-# https://raw.githubusercontent.com/JeffVandrewJr/isso/patron.23/Dockerfile
+# https://raw.githubusercontent.com/JeffVandrewJr/isso/patron.22/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building jvandrew/isso:atron.23"
+echo "Building jvandrew/isso:atron.22"
 git clone https://github.com/JeffVandrewJr/isso isso
 cd isso
-git checkout patron.23
+git checkout patron.22
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "jvandrew/isso:atron.23" .
+docker build -f "$DOCKERFILE" -t "jvandrew/isso:atron.22" .
 cd - && cd ..
 
 
