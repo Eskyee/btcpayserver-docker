@@ -117,6 +117,10 @@ You can read [the article](https://medium.com/@BtcpayServer/hosting-btcpay-serve
 `btcpay-setup.sh` will use the following environment variables:
 
 * `BTCPAY_HOST`: The hostname of your website (eg. `btcpay.example.com`)
+* `REVERSEPROXY_HTTP_PORT`: The public port the reverse proxy binds to for HTTP traffic (default: 80)
+* `REVERSEPROXY_HTTPS_PORT`: The public port the reverse proxy binds to for HTTPS traffic (default: 443)
+* `BTCPAY_HOST`: The hostname of your website (eg. `btcpay.example.com`)
+* `REVERSEPROXY_DEFAULT_HOST`: Optional, if using a reverse proxy nginx, specify which website should be presented if the server is accessed by its IP.
 * `NBITCOIN_NETWORK`: The type of network to use (eg. `mainnet`, `testnet`, or `regtest`. Default: `mainnet`)
 * `LIGHTNING_ALIAS`: An alias for your lightning network node, if used
 * `BTCPAYGEN_CRYPTO1`: First supported crypto currency (eg. `btc`, `ltc`. Default: `btc`)
@@ -327,7 +331,7 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | bitcoin-clightning.yml | shesek/spark-wallet | 0.2.8-standalone | [✔️](https://raw.githubusercontent.com/shesek/spark-wallet/v0.2.8/Dockerfile) | ️❌ | [Github](https://github.com/shesek/spark-wallet) - [DockerHub](https://hub.docker.com/r/shesek/spark-wallet) |
 | bitcoin-lnd.yml | btcpayserver/lnd | v0.6.1-beta | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.6.1-beta/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.6.1-beta/linuxarm32v7.Dockerfile) | [Github](https://github.com/btcpayserver/lnd) - [DockerHub](https://hub.docker.com/r/btcpayserver/lnd) |
 | bitcore.yml | dalijolijo/docker-bitcore | 0.15.2 | [✔️](https://raw.githubusercontent.com/dalijolijo/btcpayserver-docker-bitcore/master/btx-debian/Dockerfile) | ️❌ | [Github](https://github.com/dalijolijo/btcpayserver-docker-bitcore) - [DockerHub](https://hub.docker.com/r/dalijolijo/docker-bitcore) |
-| btcpayserver.yml | btcpayserver/btcpayserver | 1.0.3.116 | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.116/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.116/arm32v7.Dockerfile) | [Github](https://github.com/btcpayserver/btcpayserver) - [DockerHub](https://hub.docker.com/r/btcpayserver/btcpayserver) |
+| btcpayserver.yml | btcpayserver/btcpayserver | 1.0.3.117 | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.117/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.117/arm32v7.Dockerfile) | [Github](https://github.com/btcpayserver/btcpayserver) - [DockerHub](https://hub.docker.com/r/btcpayserver/btcpayserver) |
 | dash.yml | btcpayserver/dash | 0.13.0 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.13.0/Dash/0.13.0/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.13.0/Dash/0.13.0/linuxarm32v7.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/dash) |
 | dogecoin.yml | rockstardev/dogecoin | 1.10.0 | [✔️](https://raw.githubusercontent.com/rockstardev/docker-bitcoin/feature/dogecoin/dogecoin/1.10.0/Dockerfile) | ️❌ | [Github](https://github.com/rockstardev/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/rockstardev/dogecoin) |
 | feathercoin.yml | chekaz/docker-feathercoin | 0.16.3 | [✔️](https://raw.githubusercontent.com/ChekaZ/docker/master/feathercoin/0.16.3/Dockerfile) | ️❌ | [Github](https://github.com/ChekaZ/docker) - [DockerHub](https://hub.docker.com/r/chekaz/docker-feathercoin) |
@@ -446,3 +450,17 @@ Then set it up:
 export BTCPAYGEN_ADDITIONAL_FRAGMENTS="opt-save-storage.custom"
 . ./btcpay-setup.sh -i
 ```
+
+## Can I run BTCPay Server on ports other than 80 and 443?
+
+You can change the ports for HTTP and HTTPS by setting the environment variables `REVERSEPROXY_HTTP_PORT` and `REVERSEPROXY_HTTPS_PORT`. This is handy when ports 80 and 443 are already in use on your host, or you want to offload SSL termination with an existing web proxy.
+
+When you set `REVERSEPROXY_HTTP_PORT` to another value than 80, the built-in Let's Encrypt certificate will not work, as Let's Encrypt will try to validate your SSL certificate request by connecting from the internet to your domain on port 80. This validation request should be able to reach BTCPay Server in order to receive the certificate.
+
+If you need to run on a different port, it's best to terminate SSL using another web proxy and foreard your traffic. 
+
+## Can I offload HTTPS termination? 
+
+Yes. To offload SSL termination, just forward the requests to the port specified by `REVERSEPROXY_HTTP_PORT` and make sure you are setting the header `X-Forwarded-Proto: https` so BTC Pay Server can know the original request was HTTPS. If you forget this extra header, BTCPay Server will work, but it will believe the connection is insecure and display a warning message.
+
+Because you are offloading HTTPS, you won't need the built-in Let's Encrypt anymore and can exclude `nginx-https` by adding it to `BTCPAYGEN_EXCLUDE_FRAGMENTS`.
