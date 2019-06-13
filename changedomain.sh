@@ -13,10 +13,10 @@ echo "Changing domain from \"$OLD_HOST\" to \"$NEW_HOST\""
 export BTCPAY_HOST="$NEW_HOST"
 export ACME_CA_URI="https://acme-v01.api.letsencrypt.org/directory"
 
-pushd .
+pushd . > /dev/null
 # Modify environment file
 cd "$BTCPAY_BASE_DIRECTORY/btcpayserver-docker"
 . helpers.sh
 btcpay_update_docker_env
 btcpay_up
-popd
+popd > /dev/null
