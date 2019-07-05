@@ -31,6 +31,8 @@ if [ "$BTCPAYGEN_REVERSEPROXY" == "nginx" ]; then
     cp Production/nginx.tmpl Generated/nginx.tmpl
 fi
 
+[[ -f "Generated/pull-images.sh" ]] && chmod +x Generated/pull-images.sh
+
 if [ "$BTCPAYGEN_REVERSEPROXY" == "traefik" ]; then
     cp Traefik/traefik.toml Generated/traefik.toml
     :> Generated/acme.json
