@@ -26,7 +26,7 @@
 	{{ range $container := $.Containers }}
 		{{ $serviceName := (index $container.Labels "com.docker.compose.service") }}
 		{{ if (eq $serviceName "lnd_bitcoin") }}
-	location /lnrpc.Lightning {
+	location /lnrpc {
 		grpc_pass grpcs://lnd_bitcoin:10009;
 	}
 	location /lnd-rest/btc/ {
@@ -155,7 +155,10 @@ proxy_set_header X-Forwarded-Port $proxy_x_forwarded_port;
 proxy_buffer_size          128k;
 proxy_buffers              4 256k;
 proxy_busy_buffers_size    256k;
-http2_max_field_size       32k;
+client_header_buffer_size 500k;
+large_client_header_buffers 4 500k;
+http2_max_field_size       500k;
+http2_max_header_size      500k;
 
 # Mitigate httpoxy attack (see README for details)
 proxy_set_header Proxy "";
