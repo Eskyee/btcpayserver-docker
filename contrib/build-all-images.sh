@@ -60,16 +60,16 @@ cd - && cd ..
 
 
 # Build lightning
-# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.0-3/Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.1/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.0-3/contrib/linuxarm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.1/contrib/linuxarm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="contrib/linuxarm32v7.Dockerfile"
-echo "Building btcpayserver/lightning:v0.7.0-3"
+echo "Building btcpayserver/lightning:v0.7.1"
 git clone https://github.com/btcpayserver/lightning lightning
 cd lightning
-git checkout basedon-v0.7.0-3
+git checkout basedon-v0.7.1
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/lightning:v0.7.0-3" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/lightning:v0.7.1" .
 cd - && cd ..
 
 
@@ -166,16 +166,16 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.121/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.124/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.121/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.124/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.121"
+echo "Building btcpayserver/btcpayserver:1.0.3.124"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.121
+git checkout v1.0.3.124
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.121" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.124" .
 cd - && cd ..
 
 
@@ -268,16 +268,16 @@ cd - && cd ..
 
 
 # Build lightning
-# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.0-3/Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.1/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.0-3/contrib/linuxarm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/lightning/basedon-v0.7.1/contrib/linuxarm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="contrib/linuxarm32v7.Dockerfile"
-echo "Building btcpayserver/lightning:v0.7.0-3"
+echo "Building btcpayserver/lightning:v0.7.1"
 git clone https://github.com/btcpayserver/lightning lightning
 cd lightning
-git checkout basedon-v0.7.0-3
+git checkout basedon-v0.7.1
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/lightning:v0.7.0-3" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/lightning:v0.7.1" .
 cd - && cd ..
 
 
@@ -322,16 +322,16 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.52/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.55/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.52/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.55/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-echo "Building nicolasdorier/nbxplorer:2.0.0.52"
+echo "Building nicolasdorier/nbxplorer:2.0.0.55"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.0.0.52
+git checkout v2.0.0.55
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.52" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.55" .
 cd - && cd ..
 
 
