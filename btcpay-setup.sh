@@ -165,6 +165,11 @@ if [ ! -z "$BTCPAY_ADDITIONAL_HOSTS" ] && [[ "$BTCPAY_ADDITIONAL_HOSTS" == *[';'
     echo "$BTCPAY_ADDITIONAL_HOSTS should be separated by a , not ;"
     return;
 fi
+
+if [ ! -z "$BTCPAY_ADDITIONAL_HOSTS" ] && [[ "$BTCPAY_ADDITIONAL_HOSTS" == .onion* ]]; then 
+    echo "$BTCPAY_ADDITIONAL_HOSTS should not contains onion hosts, additional hosts is only for getting https certificates, those are not available to tor addresses"
+    return;
+fi
 ######### Migration: old pregen environment to new environment ############
 if [[ ! -z $BTCPAY_DOCKER_COMPOSE ]] && [[ ! -z $DOWNLOAD_ROOT ]] && [[ -z $BTCPAYGEN_OLD_PREGEN ]]; then
     echo "Your deployment is too old, you need to migrate by following instructions on this link https://github.com/btcpayserver/btcpayserver-docker/tree/master#i-deployed-before-btcpay-setupsh-existed-before-may-17-can-i-migrate-to-this-new-system"
@@ -353,13 +358,20 @@ if ! [[ -x "$(command -v docker)" ]] || ! [[ -x "$(command -v docker-compose)" ]
         			brew install docker
         			brew link docker
         		fi
-        	else
-        		# Not Mac OS
-				echo "Trying to install docker..."
-				curl -fsSL https://get.docker.com -o get-docker.sh
-				chmod +x get-docker.sh
-				sh get-docker.sh
-				rm get-docker.sh
+            elif grep -i raspbian /etc/*-release >/dev/null 2>&1;then
+                # Raspbian Linux
+                echo "Trying to install docker using Raspbian 10 patch..."
+                curl -fsSL https://get.docker.com|sed -e 's/buster/stretch/' > get-docker.sh
+                chmod +x get-docker.sh
+                sh get-docker.sh
+                rm get-docker.sh
+            else
+                # Not Raspbian Linux or Mac OS
+                echo "Trying to install docker..."
+                curl -fsSL https://get.docker.com -o get-docker.sh
+                chmod +x get-docker.sh
+                sh get-docker.sh
+                rm get-docker.sh
             fi
         elif [[ "$(uname -m)" == "aarch64" ]]; then
             echo "Trying to install docker for armv7 on a aarch64 board..."
