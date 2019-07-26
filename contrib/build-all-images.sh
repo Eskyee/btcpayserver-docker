@@ -112,16 +112,16 @@ cd - && cd ..
 
 
 # Build rtl
-# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.3.2/Dockerfile
+# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.3/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.3.2/Dockerfile.arm32v7
+# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.3/Dockerfile.arm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.arm32v7"
-echo "Building shahanafarooqui/rtl:0.3.2"
+echo "Building shahanafarooqui/rtl:0.4.3"
 git clone https://github.com/ShahanaFarooqui/RTL rtl
 cd rtl
-git checkout v0.3.2
+git checkout v0.4.3
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "shahanafarooqui/rtl:0.3.2" .
+docker build -f "$DOCKERFILE" -t "shahanafarooqui/rtl:0.4.3" .
 cd - && cd ..
 
 
@@ -166,16 +166,16 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.124/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.126/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.124/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.126/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.124"
+echo "Building btcpayserver/btcpayserver:1.0.3.126"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.124
+git checkout v1.0.3.126
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.124" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.126" .
 cd - && cd ..
 
 
@@ -220,14 +220,14 @@ cd - && cd ..
 
 
 # Build lightning
-# https://raw.githubusercontent.com/Groestlcoin/lightning/v0.7.0/Dockerfile
+# https://raw.githubusercontent.com/Groestlcoin/lightning/v0.7.1/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building groestlcoin/lightning:v0.7.0"
+echo "Building groestlcoin/lightning:v0.7.1"
 git clone https://github.com/Groestlcoin/lightning lightning
 cd lightning
-git checkout v0.7.0
+git checkout v0.7.1
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "groestlcoin/lightning:v0.7.0" .
+docker build -f "$DOCKERFILE" -t "groestlcoin/lightning:v0.7.1" .
 cd - && cd ..
 
 
