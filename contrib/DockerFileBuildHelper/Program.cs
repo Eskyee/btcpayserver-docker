@@ -368,6 +368,7 @@ namespace DockerFileBuildHelper
                 case "nbxplorer":
                     dockerInfo.DockerFilePath = "Dockerfile.linuxamd64";
                     dockerInfo.DockerFilePathARM32v7 = "Dockerfile.linuxarm32v7";
+                    dockerInfo.DockerFilePathARM64v8 = "Dockerfile.linuxarm64v8";
                     dockerInfo.GitLink = "https://github.com/dgarage/nbxplorer";
                     dockerInfo.GitRef = $"v{image.Tag}";
                     break;
@@ -430,6 +431,7 @@ namespace DockerFileBuildHelper
                 case "letsencrypt-nginx-proxy-companion":
                     dockerInfo.DockerFilePath = $"linuxamd64.Dockerfile";
                     dockerInfo.DockerFilePathARM32v7 = $"linuxarm32v7.Dockerfile";
+                    dockerInfo.DockerFilePathARM64v8 = $"linuxarm64v8.Dockerfile";
                     dockerInfo.GitLink = "https://github.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion";
                     dockerInfo.GitRef = $"v{image.Tag}";
                     break;
