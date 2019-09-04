@@ -118,16 +118,18 @@ cd - && cd ..
 
 
 # Build rtl
-# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.3/Dockerfile
+# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.7/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.3/Dockerfile.arm32v7
+# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.7/Dockerfile.arm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.arm32v7"
-echo "Building shahanafarooqui/rtl:0.4.3"
+# https://raw.githubusercontent.com/ShahanaFarooqui/RTL/v0.4.7/Dockerfile.arm64v8
+[[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfile.arm64v8"
+echo "Building shahanafarooqui/rtl:0.4.7"
 git clone https://github.com/ShahanaFarooqui/RTL rtl
 cd rtl
-git checkout v0.4.3
+git checkout v0.4.7
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "shahanafarooqui/rtl:0.4.3" .
+docker build -f "$DOCKERFILE" -t "shahanafarooqui/rtl:0.4.7" .
 cd - && cd ..
 
 
@@ -172,16 +174,16 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.127/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.128/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.127/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.128/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.127"
+echo "Building btcpayserver/btcpayserver:1.0.3.128"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.127
+git checkout v1.0.3.128
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.127" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.128" .
 cd - && cd ..
 
 
@@ -332,18 +334,18 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.56/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.56/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.56/Dockerfile.linuxarm64v8
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxarm64v8
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfile.linuxarm64v8"
-echo "Building nicolasdorier/nbxplorer:2.0.0.56"
+echo "Building nicolasdorier/nbxplorer:2.0.0.57"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.0.0.56
+git checkout v2.0.0.57
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.56" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.0.0.57" .
 cd - && cd ..
 
 
@@ -420,28 +422,28 @@ cd - && cd ..
 
 
 # Build btctransmuter
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.26/BtcTransmuter/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.33/BtcTransmuter/Dockerfile.linuxamd64
 DOCKERFILE="BtcTransmuter/Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.26/BtcTransmuter/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.33/BtcTransmuter/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="BtcTransmuter/Dockerfile.linuxarm32v7"
-echo "Building btcpayserver/btctransmuter:0.0.26"
+echo "Building btcpayserver/btctransmuter:0.0.33"
 git clone https://github.com/btcpayserver/btctransmuter btctransmuter
 cd btctransmuter
-git checkout v0.0.26
+git checkout v0.0.33
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.26" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.33" .
 cd - && cd ..
 
 
 # Build librepatron
-# https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.37/Dockerfile
+# https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.39/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building jvandrew/librepatron:0.7.37"
+echo "Building jvandrew/librepatron:0.7.39"
 git clone https://github.com/JeffVandrewJr/patron librepatron
 cd librepatron
-git checkout v0.7.37
+git checkout v0.7.39
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "jvandrew/librepatron:0.7.37" .
+docker build -f "$DOCKERFILE" -t "jvandrew/librepatron:0.7.39" .
 cd - && cd ..
 
 
@@ -530,12 +532,8 @@ cd - && cd ..
 
 
 # Build traefik
-# https://raw.githubusercontent.com/containous/traefik-library-image/master/scratch/amd64/Dockerfile
-DOCKERFILE="scratch/amd64/Dockerfile"
-# https://raw.githubusercontent.com/containous/traefik-library-image/master/scratch/arm/Dockerfile
-[[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="scratch/arm/Dockerfile"
-# https://raw.githubusercontent.com/containous/traefik-library-image/master/scratch/arm64/Dockerfile
-[[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="scratch/arm64/Dockerfile"
+# https://raw.githubusercontent.com/containous/traefik-library-image/master/scratch/Dockerfile
+DOCKERFILE="scratch/Dockerfile"
 echo "Building traefik:latest"
 git clone https://github.com/containous/traefik-library-image traefik
 cd traefik
