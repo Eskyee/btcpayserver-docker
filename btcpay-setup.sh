@@ -400,20 +400,13 @@ if ! [[ -x "$(command -v docker)" ]] || ! [[ -x "$(command -v docker-compose)" ]
     fi
 
     if ! [[ -x "$(command -v docker-compose)" ]]; then
-        if ! [[ "$OSTYPE" == "darwin"* ]]; then
-            if [[ "$(uname -m)" == "x86_64" ]]; then
-                DOCKER_COMPOSE_DOWNLOAD="https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m`"
-                echo "Trying to install docker-compose by downloading on $DOCKER_COMPOSE_DOWNLOAD ($(uname -m))"
-                curl -L "$DOCKER_COMPOSE_DOWNLOAD" -o /usr/local/bin/docker-compose
-                chmod +x /usr/local/bin/docker-compose
-            elif $HAS_DOCKER; then
-                echo "Trying to install docker-compose by using the docker-compose-builder ($(uname -m))"
-                ! [[ -d "dist" ]] && mkdir dist
-                docker run --rm -v "$(pwd)/dist:/dist" btcpayserver/docker-compose-builder:1.23.2
-                mv dist/docker-compose /usr/local/bin/docker-compose
-                chmod +x /usr/local/bin/docker-compose
-                rm -rf "dist"
-            fi
+        if ! [[ "$OSTYPE" == "darwin"* ]] && $HAS_DOCKER; then
+            echo "Trying to install docker-compose by using the docker-compose-builder ($(uname -m))"
+            ! [[ -d "dist" ]] && mkdir dist
+            docker run --rm -v "$(pwd)/dist:/dist" btcpayserver/docker-compose-builder:1.24.1
+            mv dist/docker-compose /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+            rm -rf "dist"
         fi
 	fi
 fi
@@ -463,7 +456,7 @@ ExecReload=/bin/bash -c '. \"$BASH_PROFILE_SCRIPT\" && cd \"\$BTCPAY_BASE_DIRECT
 [Install]
 WantedBy=multi-user.target" > /etc/systemd/system/btcpayserver.service
 
-	if ! [[ -f "/etc/docker/daemon.json" ]]; then
+	if ! [[ -f "/etc/docker/daemon.json" ]] && [ -w "/etc/docker" ]; then
 		echo "{
 \"log-driver\": \"json-file\",
 \"log-opts\": {\"max-size\": \"5m\", \"max-file\": \"3\"}
