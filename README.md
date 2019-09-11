@@ -1,40 +1,12 @@
+[![CircleCI](https://circleci.com/gh/btcpayserver/btcpayserver-docker.svg?style=svg)](https://circleci.com/gh/btcpayserver/btcpayserver-docker)
+
 #### Start accepting Bitcoin today with BTCPayServer! This guide will walk you through the installation.
 
-# One-click deployment
+# Introduction
 
-For the easiest and fastest setup, host BTCPayServer on Microsoft Azure:
+While [our instructions](https://docs.btcpayserver.org/deployment/lunanodewebdeployment) cover how to install BTCPayServer in one click on Azure or Lunanode, BTCPay Server is not limited to those options.
 
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fbtcpayserver%2Fbtcpayserver-azure%2Fmaster%2Fazuredeploy.json)
-
-You can log into [Azure](https://azure.microsoft.com/en-us/account/) with your Microsoft account.
-
-Final installation steps:
-
-* Fill in the options: Resource Group
-* Click 'Purchase' to confirm
-* (Wait for deployment)
-* View the deployment (in Notifications or Resource Groups)
-* Verify you can connect to your instance with a browser: `https://SERVER-AZURE-DNS/`
-* At your domain registrar, make sure you have [DNS](https://github.com/btcpayserver/btcpayserver-doc/blob/master/ChangeDomain.md#setting-up-your-dns-record) pointing your domain at your Azure deployment's IP.
-* Browse to `https://SERVER-AZURE-DNS/`
-* Register a new account (this account will be granted server administrator rights)
-* Go to `https://SERVER-AZURE-DNS/server/maintenance`
-* Enter your domain name and click on confirm
-* (Wait 1 to 5 minutes)
-
-That's it, you can now browse to `https://btcpay.YOUR-DOMAIN/` to create your store!
-
-For advanced users, you can connect via SSH with information on `https://btcpay.YOUR-DOMAIN/server/services/ssh`, then you can:
-
-* Run `docker ps` and `docker logs xxx` to view running processes
-* Run `btcpay-down.sh` and `btcpay-up.sh` to stop and start the BTCPayServer
-
-This video by Nicolas also demonstrates the above steps:
-
-[![BTCPay - One Click Setup](http://img.youtube.com/vi/Bxs95BdEMHY/mqdefault.jpg)](https://www.youtube.com/watch?v=Bxs95BdEMHY "BTCPay - One Click Setup")
-
-Approximate Cost (pruned, Bitcoin-only with lightning network): **10 USD per month**.
-You can use the wizard of the [lunanode deployment](https://docs.btcpayserver.org/deployment/lunanodewebdeployment) to deploy a BTCPay Server or just use the `btcpay-setup.sh -i` script as described in this README.
+You will find below information about how you can install BTCPay Server easily in any environment having docker available.
 
 # Architecture
 
@@ -348,7 +320,7 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | nbxplorer.yml | nicolasdorier/nbxplorer | 2.0.0.57 | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxamd64) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxarm32v7) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.0.0.57/Dockerfile.linuxarm64v8) | [Github](https://github.com/dgarage/nbxplorer) - [DockerHub](https://hub.docker.com/r/nicolasdorier/nbxplorer) |
 | nginx.yml | nginx | 1.16.0 | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [Github](https://github.com/nginxinc/docker-nginx) - [DockerHub](https://hub.docker.com/_/nginx) |
 | nginx.yml | btcpayserver/docker-gen | 0.7.6 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.6/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.6/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.6/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/docker-gen) - [DockerHub](https://hub.docker.com/r/btcpayserver/docker-gen) |
-| nginx-https.yml | btcpayserver/letsencrypt-nginx-proxy-companion | 1.10.1 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.10.1/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.10.1/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.10.1/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion) - [DockerHub](https://hub.docker.com/r/btcpayserver/letsencrypt-nginx-proxy-companion) |
+| nginx-https.yml | btcpayserver/letsencrypt-nginx-proxy-companion | 1.11.2.1 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.11.2.1/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.11.2.1/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.11.2.1/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion) - [DockerHub](https://hub.docker.com/r/btcpayserver/letsencrypt-nginx-proxy-companion) |
 | opt-add-btcqbo.yml | jvandrew/btcqbo | 0.3.36 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/btcqbo/v0.3.36/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/btcqbo) - [DockerHub](https://hub.docker.com/r/jvandrew/btcqbo) |
 | opt-add-btcqbo.yml | redis | 5.0.2-alpine | [✔️](https://raw.githubusercontent.com/docker-library/redis/f1a8498333ae3ab340b5b39fbac1d7e1dc0d628c/5.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/docker-library/redis) - [DockerHub](https://hub.docker.com/_/redis) |
 | opt-add-btctransmuter.yml | btcpayserver/btctransmuter | 0.0.33 | [✔️](https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.33/BtcTransmuter/Dockerfile.linuxamd64) | [✔️](https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.33/BtcTransmuter/Dockerfile.linuxarm32v7) | ️❌ | [Github](https://github.com/btcpayserver/btctransmuter) - [DockerHub](https://hub.docker.com/r/btcpayserver/btctransmuter) |
