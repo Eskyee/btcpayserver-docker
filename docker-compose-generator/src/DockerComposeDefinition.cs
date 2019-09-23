@@ -87,10 +87,10 @@ namespace DockerGenerator
 			output.Add("services", new YamlMappingNode(Merge(services)));
 			output.Add("volumes", new YamlMappingNode(volumes));
 			output.Add("networks", new YamlMappingNode(networks));
-
+			PostProcess(output);
 
 			var dockerImages = ((YamlMappingNode)output["services"]).Children.Select(kv => kv.Value["image"].ToString()).ToList();
-			dockerImages.Add("btcpayserver/docker-compose-builder:1.23.2");
+			dockerImages.Add("btcpayserver/docker-compose-builder:1.24.1");
 			dockerImages.Add("btcpayserver/docker-compose-generator:latest");
 			StringBuilder pullImageSh = new StringBuilder();
 			pullImageSh.Append($"#!/bin/bash\n\n");
@@ -117,6 +117,11 @@ namespace DockerGenerator
 			File.WriteAllText(outputFile, result.Replace("''", ""));
 			Console.WriteLine($"Generated {outputFile}");
 			Console.WriteLine();
+		}
+
+		private void PostProcess(YamlMappingNode output)
+		{
+			new BuildTimeVariableVisitor().Visit(output);
 		}
 
 		private KeyValuePair<YamlNode, YamlNode>[] Merge(List<KeyValuePair<YamlNode, YamlNode>> services)
