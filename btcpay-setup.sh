@@ -104,6 +104,8 @@ Add-on specific variables:
     WOOCOMMERCE_HOST: If woocommerce is activated with opt-add-woocommerce, the hostname of your woocommerce website (eg. store.example.com)
     BTCPAYGEN_EXCLUDE_FRAGMENTS:  Semicolon-separated list of fragments you want to forcefully exclude (eg. litecoin-clightning)
     BTCTRANSMUTER_HOST: If btc transmuter is activated with opt-add-btctransmuter, the hostname of your btc transmuter website (eg. store.example.com)
+    TOR_RELAY_NICKNAME: If tor relay is activated with opt-add-tor-relay, the relay nickname
+    TOR_RELAY_EMAIL: If tor relay is activated with opt-add-tor-relay, the email for Tor to contact you regarding your relay
 END
 }
 START=""
@@ -242,12 +244,8 @@ if $BTCPAY_ENABLE_SSH && [[ "$BTCPAY_HOST_SSHAUTHORIZEDKEYS" ]]; then
     use_ssh=true
 fi
 
-if $use_ssh; then
-    for pubkey in /etc/ssh/ssh_host_*.pub; do
-        fingerprint="$(ssh-keygen -l -f $pubkey | awk '{print $2}')"
-        BTCPAY_SSHTRUSTEDFINGERPRINTS="$fingerprint;$BTCPAY_SSHTRUSTEDFINGERPRINTS"
-    done
-fi
+# Do not set BTCPAY_SSHTRUSTEDFINGERPRINTS in the setup, since we connect from inside the docker container to the host, this is fine
+BTCPAY_SSHTRUSTEDFINGERPRINTS=""
 
 if [[ "$BTCPAYGEN_REVERSEPROXY" == "nginx" ]] && [[ "$BTCPAY_HOST" ]]; then
     DOMAIN_NAME="$(echo "$BTCPAY_HOST" | grep -E '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$')"
@@ -305,6 +303,8 @@ BTCPAYGEN_ADDITIONAL_FRAGMENTS:$BTCPAYGEN_ADDITIONAL_FRAGMENTS
 BTCPAYGEN_EXCLUDE_FRAGMENTS:$BTCPAYGEN_EXCLUDE_FRAGMENTS
 BTCPAY_IMAGE:$BTCPAY_IMAGE
 ACME_CA_URI:$ACME_CA_URI
+TOR_RELAY_NICKNAME: $TOR_RELAY_NICKNAME
+TOR_RELAY_EMAIL: $TOR_RELAY_EMAIL
 ----------------------
 Additional exported variables:
 BTCPAY_DOCKER_COMPOSE=$BTCPAY_DOCKER_COMPOSE
@@ -488,7 +488,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/btcpayserver.service
 \"log-opts\": {\"max-size\": \"5m\", \"max-file\": \"3\"}
 }" > /etc/docker/daemon.json
         echo "Setting limited log files in /etc/docker/daemon.json"
-        $START && systemctl restart docker
+        $SYSTEMD_RELOAD && $START && systemctl restart docker
     fi
 
     echo -e "BTCPay Server systemd configured in /etc/systemd/system/btcpayserver.service\n"
