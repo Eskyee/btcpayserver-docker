@@ -4,7 +4,7 @@ services:
 
   btcpayserver:
     restart: unless-stopped
-    image: ${BTCPAY_IMAGE:-junglelab/btcpayjungle:1.0.3.136}
+    image: ${BTCPAY_IMAGE:-junglelab/btcpayjungle:1.0.3.137}
     expose:
       - "49392"
     environment:
@@ -26,4 +26,11 @@ services:
      - "$<BTCPAY_HOST_SSHAUTHORIZEDKEYS>?:${BTCPAY_SSHAUTHORIZEDKEYS}"
 
 volumes:
-    btcpay_datadir:
+  btcpay_datadir:
+
+required:
+  - "postgres"
+  - "nbxplorer"
+  - "btcpayserver"
+recommended:
+  - "opt-add-tor"
