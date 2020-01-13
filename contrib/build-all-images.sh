@@ -194,16 +194,18 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.146/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.147/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.146/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.147/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.146"
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.147/arm64v8.Dockerfile
+[[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
+echo "Building btcpayserver/btcpayserver:1.0.3.147"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.146
+git checkout v1.0.3.147
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.146" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.147" .
 cd - && cd ..
 
 
@@ -248,14 +250,14 @@ cd - && cd ..
 
 
 # Build lightning
-# https://raw.githubusercontent.com/Groestlcoin/lightning/v0.7.3/Dockerfile
+# https://raw.githubusercontent.com/Groestlcoin/lightning/v0.8.0/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building groestlcoin/lightning:v0.7.3"
+echo "Building groestlcoin/lightning:v0.8.0"
 git clone https://github.com/Groestlcoin/lightning lightning
 cd lightning
-git checkout v0.7.3
+git checkout v0.8.0
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "groestlcoin/lightning:v0.7.3" .
+docker build -f "$DOCKERFILE" -t "groestlcoin/lightning:v0.8.0" .
 cd - && cd ..
 
 
@@ -280,6 +282,18 @@ cd groestlcoin-spark
 git checkout v0.2.9
 cd "$(dirname $DOCKERFILE)"
 docker build -f "$DOCKERFILE" -t "groestlcoin/groestlcoin-spark:version-0.2.9" .
+cd - && cd ..
+
+
+# Build lnd
+# https://raw.githubusercontent.com/Groestlcoin/lnd/v0.8.2-grs/Dockerfile
+DOCKERFILE="Dockerfile"
+echo "Building groestlcoin/lnd:v0.8.2-grs"
+git clone https://github.com/Groestlcoin/lnd lnd
+cd lnd
+git checkout v0.8.2-grs
+cd "$(dirname $DOCKERFILE)"
+docker build -f "$DOCKERFILE" -t "groestlcoin/lnd:v0.8.2-grs" .
 cd - && cd ..
 
 
@@ -378,18 +392,18 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.2/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.5/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.2/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.5/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.2/Dockerfile.linuxarm64v8
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.5/Dockerfile.linuxarm64v8
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfile.linuxarm64v8"
-echo "Building nicolasdorier/nbxplorer:2.1.2"
+echo "Building nicolasdorier/nbxplorer:2.1.5"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.1.2
+git checkout v2.1.5
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.2" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.5" .
 cd - && cd ..
 
 
