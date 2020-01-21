@@ -506,6 +506,22 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitRef = $"v{image.Tag.Split('-')[0]}";
                     dockerInfo.SupportedByUs = true;
                     break;
+                case "c-lightning-rest":
+                    dockerInfo.DockerFilePath = $"amd64.Dockerfile";
+                    dockerInfo.DockerFilePathARM32v7 = $"arm32v7.Dockerfile";
+                    dockerInfo.DockerFilePathARM64v8 = $"arm64v8.Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/Ride-The-Lightning/c-lightning-REST";
+                    dockerInfo.GitRef = $"v{image.Tag.Split('-')[0]}";
+                    dockerInfo.SupportedByUs = true;
+                    break;
+                case "btcpayserver-configurator":
+                    dockerInfo.DockerFilePath = $"Dockerfiles/amd64.Dockerfile";
+                    dockerInfo.DockerFilePathARM32v7 = $"Dockerfiles/arm32v7.Dockerfile";
+                    dockerInfo.DockerFilePathARM64v8 = $"Dockerfiles/arm64v8.Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/btcpayserver/btcpayserver-configurator";
+                    dockerInfo.GitRef = $"v{image.Tag.Split('-')[0]}";
+                    dockerInfo.SupportedByUs = true;
+                    break;
                 default:
                     if (firstTry)
                     {
