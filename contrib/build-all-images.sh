@@ -226,18 +226,18 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.155/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.156/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.155/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.156/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.155/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.156/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.155"
+echo "Building btcpayserver/btcpayserver:1.0.3.156"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.155
+git checkout v1.0.3.156
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.155" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.156" .
 cd - && cd ..
 
 
@@ -538,6 +538,22 @@ cd btctransmuter
 git checkout v0.0.47
 cd "$(dirname $DOCKERFILE)"
 docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.47" .
+cd - && cd ..
+
+
+# Build btcpayserver-configurator
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.18/Dockerfiles/amd64.Dockerfile
+DOCKERFILE="Dockerfiles/amd64.Dockerfile"
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.18/Dockerfiles/arm32v7.Dockerfile
+[[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfiles/arm32v7.Dockerfile"
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.18/Dockerfiles/arm64v8.Dockerfile
+[[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfiles/arm64v8.Dockerfile"
+echo "Building btcpayserver/btcpayserver-configurator:0.0.18"
+git clone https://github.com/btcpayserver/btcpayserver-configurator btcpayserver-configurator
+cd btcpayserver-configurator
+git checkout v0.0.18
+cd "$(dirname $DOCKERFILE)"
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver-configurator:0.0.18" .
 cd - && cd ..
 
 
