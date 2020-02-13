@@ -78,18 +78,18 @@ cd - && cd ..
 
 
 # Build lightning-charge
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.11/Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.11/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.11/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building shesek/lightning-charge:0.4.11-standalone"
+echo "Building shesek/lightning-charge:0.4.16-standalone"
 git clone https://github.com/ElementsProject/lightning-charge lightning-charge
 cd lightning-charge
-git checkout v0.4.11
+git checkout v0.4.16
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "shesek/lightning-charge:0.4.11-standalone" .
+docker build -f "$DOCKERFILE" -t "shesek/lightning-charge:0.4.16-standalone" .
 cd - && cd ..
 
 
@@ -142,14 +142,14 @@ cd - && cd ..
 
 
 # Build eclair
-# https://raw.githubusercontent.com/ACINQ/eclair/btcpay/Dockerfile
+# https://raw.githubusercontent.com/ACINQ/eclair/v0.3.3/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building acinq/eclair:btcpay"
+echo "Building acinq/eclair:v0.3.3"
 git clone https://github.com/ACINQ/eclair eclair
 cd eclair
-git checkout btcpay
+git checkout v0.3.3
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "acinq/eclair:btcpay" .
+docker build -f "$DOCKERFILE" -t "acinq/eclair:v0.3.3" .
 cd - && cd ..
 
 
@@ -330,14 +330,14 @@ cd - && cd ..
 
 
 # Build docker-groestlcoin
-# https://raw.githubusercontent.com/NicolasDorier/docker-bitcoin/master/groestlcoin/2.17.2/Dockerfile
-DOCKERFILE="groestlcoin/2.17.2/Dockerfile"
-echo "Building nicolasdorier/docker-groestlcoin:2.17.2"
+# https://raw.githubusercontent.com/NicolasDorier/docker-bitcoin/master/groestlcoin/2.18.2/Dockerfile
+DOCKERFILE="groestlcoin/2.18.2/Dockerfile"
+echo "Building nicolasdorier/docker-groestlcoin:2.18.2"
 git clone https://github.com/NicolasDorier/docker-bitcoin docker-groestlcoin
 cd docker-groestlcoin
 git checkout master
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/docker-groestlcoin:2.17.2" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/docker-groestlcoin:2.18.2" .
 cd - && cd ..
 
 
