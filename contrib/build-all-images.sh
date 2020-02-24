@@ -226,18 +226,18 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.158/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.160/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.158/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.160/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.158/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.3.160/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.3.158"
+echo "Building btcpayserver/btcpayserver:1.0.3.160"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.3.158
+git checkout v1.0.3.160
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.158" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.3.160" .
 cd - && cd ..
 
 
@@ -418,24 +418,24 @@ cd - && cd ..
 # Build monero
 # https://raw.githubusercontent.com/Kukks/monero-docker/x86_64/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building kukks/monero:v0.15.0.0"
+echo "Building btcpayserver/monero:0.15.0.1-amd64"
 git clone https://github.com/Kukks/monero-docker monero
 cd monero
 git checkout x86_64
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "kukks/monero:v0.15.0.0" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/monero:0.15.0.1-amd64" .
 cd - && cd ..
 
 
 # Build monero
 # https://raw.githubusercontent.com/Kukks/monero-docker/x86_64/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building kukks/monero:v0.15.0.0"
+echo "Building btcpayserver/monero:0.15.0.1-amd64"
 git clone https://github.com/Kukks/monero-docker monero
 cd monero
 git checkout x86_64
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "kukks/monero:v0.15.0.0" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/monero:0.15.0.1-amd64" .
 cd - && cd ..
 
 
@@ -528,18 +528,18 @@ cd - && cd ..
 
 
 # Build btctransmuter
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.49/Dockerfiles/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.50/Dockerfiles/amd64.Dockerfile
 DOCKERFILE="Dockerfiles/amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.49/Dockerfiles/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.50/Dockerfiles/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfiles/arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.49/Dockerfiles/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.50/Dockerfiles/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfiles/arm64v8.Dockerfile"
-echo "Building btcpayserver/btctransmuter:0.0.49"
+echo "Building btcpayserver/btctransmuter:0.0.50"
 git clone https://github.com/btcpayserver/btctransmuter btctransmuter
 cd btctransmuter
-git checkout v0.0.49
+git checkout v0.0.50
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.49" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.50" .
 cd - && cd ..
 
 
@@ -559,15 +559,19 @@ docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver-configurator:0.0.18"
 cd - && cd ..
 
 
-# Build peleion/eps-docker
-# https://raw.githubusercontent.com/peleion/eps-docker/master/Dockerfile
-DOCKERFILE="Dockerfile"
-echo "Building docker.io/peleion/eps-docker:latest"
-git clone https://github.com/peleion/eps-docker peleion/eps-docker
-cd peleion/eps-docker
-git checkout master
+# Build eps
+# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/EPS/0.2.0/EPS/0.2.0/linuxamd64.Dockerfile
+DOCKERFILE="EPS/0.2.0/linuxamd64.Dockerfile"
+# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/EPS/0.2.0/EPS/0.2.0/linuxarm32v7.Dockerfile
+[[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="EPS/0.2.0/linuxarm32v7.Dockerfile"
+# https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/EPS/0.2.0/EPS/0.2.0/linuxarm64v8.Dockerfile
+[[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="EPS/0.2.0/linuxarm64v8.Dockerfile"
+echo "Building btcpayserver/eps:0.2.0"
+git clone https://github.com/btcpayserver/dockerfile-deps eps
+cd eps
+git checkout EPS/0.2.0
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "docker.io/peleion/eps-docker:latest" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/eps:0.2.0" .
 cd - && cd ..
 
 
