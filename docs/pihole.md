@@ -20,15 +20,16 @@ BTCPAYGEN_ADDITIONAL_FRAGMENTS="$BTCPAYGEN_ADDITIONAL_FRAGMENTS;opt-add-pihole"
 3. If your server has a firewall, make sure it allow incoming traffic to port `53 (UDP)`.
 4. Configure your home router DHCP server to use `192.168.1.2`
 
+
 From now everytime a device will connect to your local network, they will automatically use pi-hole as a DNS server. Advertisements will go to a black hole for all devices.
 
 ## Using the dashboard
 
 Pi-Hole comes with a very nice admin dashboard to monitor its activity.
-It is disabled by default. To enable it, you need to configure `PIHOLE_IPSERVER` to the IP of your server:
+It is disabled by default. To enable it, you need to configure `PIHOLE_SERVERIP` to the IP of your server:
 
 ```bash
-PIHOLE_IPSERVER="192.168.1.2"
+PIHOLE_SERVERIP="192.168.1.2"
 . btcpay-setup.sh -i
 ```
 
