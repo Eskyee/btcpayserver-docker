@@ -4,8 +4,8 @@ services:
 
   nbxplorer:
     restart: unless-stopped
-    image: nicolasdorier/nbxplorer:2.1.11
-    expose: 
+    image: nicolasdorier/nbxplorer:2.1.24
+    expose:
       - "32838"
     environment:
       NBXPLORER_NETWORK: ${NBITCOIN_NETWORK:-regtest}
