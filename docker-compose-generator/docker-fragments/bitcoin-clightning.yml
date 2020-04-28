@@ -24,7 +24,7 @@ services:
     links:
       - bitcoind
   clightning_bitcoin_charge:
-    image: shesek/lightning-charge:0.4.16-standalone
+    image: shesek/lightning-charge:0.4.19-standalone
     restart: unless-stopped
     environment:
       NETWORK: ${NBITCOIN_NETWORK:-regtest}
@@ -55,6 +55,7 @@ services:
   clightning_bitcoin_rest:
     image: saubyk/c-lightning-rest:0.2.1
     restart: unless-stopped
+    stop_signal: SIGKILL
     environment:
       PROTOCOL: "http"
       NODE: clightning_bitcoin:9835

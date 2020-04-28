@@ -78,18 +78,18 @@ cd - && cd ..
 
 
 # Build lightning-charge
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.19/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.19/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.16/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/ElementsProject/lightning-charge/v0.4.19/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building shesek/lightning-charge:0.4.16-standalone"
+echo "Building shesek/lightning-charge:0.4.19-standalone"
 git clone https://github.com/ElementsProject/lightning-charge lightning-charge
 cd lightning-charge
-git checkout v0.4.16
+git checkout v0.4.19
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "shesek/lightning-charge:0.4.16-standalone" .
+docker build -f "$DOCKERFILE" -t "shesek/lightning-charge:0.4.19-standalone" .
 cd - && cd ..
 
 
@@ -226,18 +226,18 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.1/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.2/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.1/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.2/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.1/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.2/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.4.1"
+echo "Building btcpayserver/btcpayserver:1.0.4.2"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.4.1
+git checkout v1.0.4.2
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.4.1" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.4.2" .
 cd - && cd ..
 
 
@@ -624,6 +624,18 @@ cd pihole
 git checkout v4.4
 cd "$(dirname $DOCKERFILE)"
 docker build -f "$DOCKERFILE" -t "pihole/pihole:v4.4" .
+cd - && cd ..
+
+
+# Build thunderhub
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.3.9/Dockerfile
+DOCKERFILE="Dockerfile"
+echo "Building apotdevin/thunderhub:v0.3.9"
+git clone https://github.com/apotdevin/thunderhub thunderhub
+cd thunderhub
+git checkout v0.3.9
+cd "$(dirname $DOCKERFILE)"
+docker build -f "$DOCKERFILE" -t "apotdevin/thunderhub:v0.3.9" .
 cd - && cd ..
 
 
