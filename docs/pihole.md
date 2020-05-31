@@ -18,7 +18,7 @@ BTCPAYGEN_ADDITIONAL_FRAGMENTS="$BTCPAYGEN_ADDITIONAL_FRAGMENTS;opt-add-pihole"
 ```
 
 3. If your server has a firewall, make sure it allow incoming traffic to port `53 (UDP)`.
-4. Configure your home router DHCP server to use `192.168.1.2`
+4. Configure your home router DHCP server to use `192.168.1.2` as primary DNS server.
 
 From now everytime a device will connect to your local network, they will automatically use pi-hole as a DNS server. Advertisements will go to a black hole for all devices.
 
@@ -50,17 +50,3 @@ Then running again
 ```bash
 docker logs pihole | grep random
 ```
-
-## Adding custom entry to pi-hole dns
-
-You can easily add your local domains to pi-hole.
-Imagine you have a NAS (like synology) on your local network with IP `192.168.1.3`, and you want to access it through `synology.lan`.
-
-```bash
-local_dns_list="$(docker volume inspect generated_pihole_datadir -f "{{.Mountpoint}}")/lan.list"
-# In most cases this will be /var/lib/docker/volumes/generated_pihole_datadir/_data/lan.list
-echo "192.168.1.3 synology.lan" >> "$local_dns_list"
-pihole.sh restartdns
-```
-
-You can now browse `http://synology.lan` to access your NAS.
