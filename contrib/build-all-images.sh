@@ -226,18 +226,18 @@ cd - && cd ..
 
 
 # Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.4-1/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.5.0/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.4-1/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.5.0/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.4.4-1/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.0.5.0/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.0.4.4-1"
+echo "Building btcpayserver/btcpayserver:1.0.5.0"
 git clone https://github.com/btcpayserver/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.0.4.4-1
+git checkout v1.0.5.0
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.4.4-1" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.0.5.0" .
 cd - && cd ..
 
 
@@ -440,18 +440,18 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.26/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.34/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.26/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.34/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.26/Dockerfile.linuxarm64v8
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.34/Dockerfile.linuxarm64v8
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfile.linuxarm64v8"
-echo "Building nicolasdorier/nbxplorer:2.1.26"
+echo "Building nicolasdorier/nbxplorer:2.1.34"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.1.26
+git checkout v2.1.34
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.26" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.34" .
 cd - && cd ..
 
 
@@ -528,34 +528,34 @@ cd - && cd ..
 
 
 # Build btctransmuter
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.52/Dockerfiles/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.55/Dockerfiles/amd64.Dockerfile
 DOCKERFILE="Dockerfiles/amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.52/Dockerfiles/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.55/Dockerfiles/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfiles/arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.52/Dockerfiles/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btctransmuter/v0.0.55/Dockerfiles/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfiles/arm64v8.Dockerfile"
-echo "Building btcpayserver/btctransmuter:0.0.52"
+echo "Building btcpayserver/btctransmuter:0.0.55"
 git clone https://github.com/btcpayserver/btctransmuter btctransmuter
 cd btctransmuter
-git checkout v0.0.52
+git checkout v0.0.55
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.52" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btctransmuter:0.0.55" .
 cd - && cd ..
 
 
 # Build btcpayserver-configurator
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.19/Dockerfiles/amd64.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.21/Dockerfiles/amd64.Dockerfile
 DOCKERFILE="Dockerfiles/amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.19/Dockerfiles/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.21/Dockerfiles/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfiles/arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.19/Dockerfiles/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/btcpayserver/btcpayserver-configurator/v0.0.21/Dockerfiles/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfiles/arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver-configurator:0.0.19"
+echo "Building btcpayserver/btcpayserver-configurator:0.0.21"
 git clone https://github.com/btcpayserver/btcpayserver-configurator btcpayserver-configurator
 cd btcpayserver-configurator
-git checkout v0.0.19
+git checkout v0.0.21
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver-configurator:0.0.19" .
+docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver-configurator:0.0.21" .
 cd - && cd ..
 
 
@@ -628,18 +628,18 @@ cd - && cd ..
 
 
 # Build thunderhub
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.6.0/Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.7.9/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.6.0/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.7.9/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.6.0/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.7.9/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building apotdevin/thunderhub:v0.6.0"
+echo "Building apotdevin/thunderhub:v0.7.9"
 git clone https://github.com/apotdevin/thunderhub thunderhub
 cd thunderhub
-git checkout v0.6.0
+git checkout v0.7.9
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "apotdevin/thunderhub:v0.6.0" .
+docker build -f "$DOCKERFILE" -t "apotdevin/thunderhub:v0.7.9" .
 cd - && cd ..
 
 
