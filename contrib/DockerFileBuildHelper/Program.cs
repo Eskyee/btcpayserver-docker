@@ -438,7 +438,7 @@ namespace DockerFileBuildHelper
                     dockerInfo.GitRef = "feature/dogecoin";
                     break;
                 case "docker-bitcore":
-                    dockerInfo.DockerFilePath = "btx-debian/Dockerfile";
+                    dockerInfo.DockerFilePath = "docker-bitcored/Dockerfile";
                     dockerInfo.GitLink = "https://github.com/dalijolijo/btcpayserver-docker-bitcore";
                     dockerInfo.GitRef = "master";
                     break;
@@ -545,6 +545,14 @@ namespace DockerFileBuildHelper
                     dockerInfo.DockerFilePathARM64v8 = "arm64v8.Dockerfile";
                     dockerInfo.GitLink = "https://github.com/apotdevin/thunderhub";
                     dockerInfo.GitRef = $"{image.Tag.Split('-')[0]}";
+                    dockerInfo.SupportedByUs = false;
+                    break;                
+                case "python-teos":
+                    dockerInfo.DockerFilePath = $"docker/Dockerfile";
+                    dockerInfo.DockerFilePathARM32v7 = $"docker/Dockerfile";
+                    dockerInfo.DockerFilePathARM64v8 = $"docker/Dockerfile";
+                    dockerInfo.GitLink = "https://github.com/talaia-labs/python-teos";
+                    dockerInfo.GitRef = $"master";
                     dockerInfo.SupportedByUs = false;
                     break;
                 default:
