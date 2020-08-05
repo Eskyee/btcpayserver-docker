@@ -142,12 +142,12 @@ cd - && cd ..
 
 
 # Build eclair
-# https://raw.githubusercontent.com/ACINQ/eclair/release-0.4.1/Dockerfile
+# https://raw.githubusercontent.com/ACINQ/eclair/v0.4.1/Dockerfile
 DOCKERFILE="Dockerfile"
 echo "Building acinq/eclair:release-0.4.1"
 git clone https://github.com/ACINQ/eclair eclair
 cd eclair
-git checkout release-0.4.1
+git checkout v0.4.1
 cd "$(dirname $DOCKERFILE)"
 docker build -f "$DOCKERFILE" -t "acinq/eclair:release-0.4.1" .
 cd - && cd ..
@@ -334,26 +334,26 @@ cd - && cd ..
 
 
 # Build lnd
-# https://raw.githubusercontent.com/Groestlcoin/lnd/v0.8.2-grs/Dockerfile
+# https://raw.githubusercontent.com/Groestlcoin/lnd/v0.10.0-grs/Dockerfile
 DOCKERFILE="Dockerfile"
-echo "Building groestlcoin/lnd:v0.8.2-grs"
+echo "Building groestlcoin/lnd:v0.10.0-grs"
 git clone https://github.com/Groestlcoin/lnd lnd
 cd lnd
-git checkout v0.8.2-grs
+git checkout v0.10.0-grs
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "groestlcoin/lnd:v0.8.2-grs" .
+docker build -f "$DOCKERFILE" -t "groestlcoin/lnd:v0.10.0-grs" .
 cd - && cd ..
 
 
 # Build docker-groestlcoin
 # https://raw.githubusercontent.com/NicolasDorier/docker-bitcoin/master/groestlcoin/2.19.1/Dockerfile
 DOCKERFILE="groestlcoin/2.19.1/Dockerfile"
-echo "Building nicolasdorier/docker-groestlcoin:2.19.1"
+echo "Building groestlcoin/docker-groestlcoin:2.19.1"
 git clone https://github.com/NicolasDorier/docker-bitcoin docker-groestlcoin
 cd docker-groestlcoin
 git checkout master
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/docker-groestlcoin:2.19.1" .
+docker build -f "$DOCKERFILE" -t "groestlcoin/docker-groestlcoin:2.19.1" .
 cd - && cd ..
 
 
@@ -456,18 +456,18 @@ cd - && cd ..
 
 
 # Build nbxplorer
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.36/Dockerfile.linuxamd64
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.40/Dockerfile.linuxamd64
 DOCKERFILE="Dockerfile.linuxamd64"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.36/Dockerfile.linuxarm32v7
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.40/Dockerfile.linuxarm32v7
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="Dockerfile.linuxarm32v7"
-# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.36/Dockerfile.linuxarm64v8
+# https://raw.githubusercontent.com/dgarage/nbxplorer/v2.1.40/Dockerfile.linuxarm64v8
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="Dockerfile.linuxarm64v8"
-echo "Building nicolasdorier/nbxplorer:2.1.36"
+echo "Building nicolasdorier/nbxplorer:2.1.40"
 git clone https://github.com/dgarage/nbxplorer nbxplorer
 cd nbxplorer
-git checkout v2.1.36
+git checkout v2.1.40
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.36" .
+docker build -f "$DOCKERFILE" -t "nicolasdorier/nbxplorer:2.1.40" .
 cd - && cd ..
 
 
@@ -660,18 +660,18 @@ cd - && cd ..
 
 
 # Build thunderhub
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.5/Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.13/Dockerfile
 DOCKERFILE="Dockerfile"
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.5/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.13/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.5/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/apotdevin/thunderhub/v0.8.13/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building apotdevin/thunderhub:v0.8.5"
+echo "Building apotdevin/thunderhub:v0.8.13"
 git clone https://github.com/apotdevin/thunderhub thunderhub
 cd thunderhub
-git checkout v0.8.5
+git checkout v0.8.13
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "apotdevin/thunderhub:v0.8.5" .
+docker build -f "$DOCKERFILE" -t "apotdevin/thunderhub:v0.8.13" .
 cd - && cd ..
 
 
