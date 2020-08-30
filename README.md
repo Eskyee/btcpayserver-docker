@@ -28,7 +28,7 @@ Note: The setup process can be time consuming, but is heavily automated to make 
 
 Take a look at how BTCPay works in a video below.
 
-[![How BTCPay Works](https://img.youtube.com/vi/nr0UNbz3AoQ/mqdefault.jpg)](https://www.youtube.com/watch?v=nr0UNbz3AoQ "How BTCPay Works")
+[![](https://img.youtube.com/vi/nr0UNbz3AoQ/hqdefault.jpg)](https://www.youtube.com/watch?v=nr0UNbz3AoQ)
 
 Here is a presentation of the global architecture at Advancing Bitcoin conference.
 
@@ -82,7 +82,9 @@ exit
 * Add BTCPay utilities in /usr/bin
 * Start BTCPay
 
-You can read [the article](https://medium.com/@BtcpayServer/hosting-btcpay-server-for-cheap-2b27761fdb9d) for step by step instructions.
+Video below guides you step by step on how to set up BTCPay Server on a VPS with Docker.
+
+[![](https://img.youtube.com/vi/x6hqTFgHqhA/hqdefault.jpg)](https://www.youtube.com/watch?v=x6hqTFgHqhA)
 
 Check out this video if you're interested in learning more about setting up [BTCPay with Docker Compose](https://www.youtube.com/playlist?list=PLH4m2oS2ratfaprAFx9E3ZDjwxNKvCk4e).
 
@@ -344,10 +346,10 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | btcpayserver/dash | 0.14.0.1 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.14.0.1/Dash/0.14.0.1/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.14.0.1/Dash/0.14.0.1/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.14.0.1/Dash/0.14.0.1/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/dash) |
 | rockstardev/dogecoin | 1.10.0 | [✔️](https://raw.githubusercontent.com/rockstardev/docker-bitcoin/feature/dogecoin/dogecoin/1.10.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/rockstardev/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/rockstardev/dogecoin) |
 | chekaz/docker-feathercoin | 0.16.3 | [✔️](https://raw.githubusercontent.com/ChekaZ/docker/master/feathercoin/0.16.3/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/ChekaZ/docker) - [DockerHub](https://hub.docker.com/r/chekaz/docker-feathercoin) |
-| groestlcoin/docker-groestlcoin | 2.19.1 | [✔️](https://raw.githubusercontent.com/NicolasDorier/docker-bitcoin/master/groestlcoin/2.19.1/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/NicolasDorier/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/groestlcoin/docker-groestlcoin) |
-| groestlcoin/lightning | v0.8.2 | [✔️](https://raw.githubusercontent.com/Groestlcoin/lightning/v0.8.2/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/lightning) - [DockerHub](https://hub.docker.com/r/groestlcoin/lightning) |
-| groestlcoin/groestlcoin-lightning-charge | version-0.4.19 | [✔️](https://raw.githubusercontent.com/Groestlcoin/groestlcoin-lightning-charge/v0.4.19/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/groestlcoin-lightning-charge) - [DockerHub](https://hub.docker.com/r/groestlcoin/groestlcoin-lightning-charge) |
-| groestlcoin/groestlcoin-spark | version-0.2.14 | [✔️](https://raw.githubusercontent.com/Groestlcoin/groestlcoin-spark/v0.2.14/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/groestlcoin-spark) - [DockerHub](https://hub.docker.com/r/groestlcoin/groestlcoin-spark) |
+| groestlcoin/docker-groestlcoin | 2.20.1 | [✔️](https://raw.githubusercontent.com/NicolasDorier/docker-bitcoin/master/groestlcoin/2.20.1/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/NicolasDorier/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/groestlcoin/docker-groestlcoin) |
+| groestlcoin/lightning | v0.9.0 | [✔️](https://raw.githubusercontent.com/Groestlcoin/lightning/v0.9.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/lightning) - [DockerHub](https://hub.docker.com/r/groestlcoin/lightning) |
+| groestlcoin/groestlcoin-lightning-charge | version-0.4.22 | [✔️](https://raw.githubusercontent.com/Groestlcoin/groestlcoin-lightning-charge/v0.4.22/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/groestlcoin-lightning-charge) - [DockerHub](https://hub.docker.com/r/groestlcoin/groestlcoin-lightning-charge) |
+| groestlcoin/groestlcoin-spark | version-0.2.16 | [✔️](https://raw.githubusercontent.com/Groestlcoin/groestlcoin-spark/v0.2.16/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/groestlcoin-spark) - [DockerHub](https://hub.docker.com/r/groestlcoin/groestlcoin-spark) |
 | groestlcoin/eclair | v0.3.3 | [✔️](https://raw.githubusercontent.com/Groestlcoin/eclair/v0.3.3/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/eclair) - [DockerHub](https://hub.docker.com/r/groestlcoin/eclair) |
 | groestlcoin/lnd | v0.10.0-grs | [✔️](https://raw.githubusercontent.com/Groestlcoin/lnd/v0.10.0-grs/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/lnd) - [DockerHub](https://hub.docker.com/r/groestlcoin/lnd) |
 | btcpayserver/elements | 0.18.1.7 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.18.1.7/Elements/0.18.1.7/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.18.1.7/Elements/0.18.1.7/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.18.1.7/Elements/0.18.1.7/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/elements) |
@@ -360,7 +362,7 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | jvandrew/librepatron | 0.7.39 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.39/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/patron) - [DockerHub](https://hub.docker.com/r/jvandrew/librepatron) |
 | jvandrew/isso | atron.22 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/isso/patron.22/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/isso) - [DockerHub](https://hub.docker.com/r/jvandrew/isso) |
 | talaia/python-teos | latest | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/Dockerfile) | [Github](https://github.com/talaia-labs/python-teos) - [DockerHub](https://hub.docker.com/r/talaia/python-teos) |
-| apotdevin/thunderhub | v0.9.3 | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.3/Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.3/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.3/arm64v8.Dockerfile) | [Github](https://github.com/apotdevin/thunderhub) - [DockerHub](https://hub.docker.com/r/apotdevin/thunderhub) |
+| apotdevin/thunderhub | v0.9.8 | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.8/Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.8/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.9.8/arm64v8.Dockerfile) | [Github](https://github.com/apotdevin/thunderhub) - [DockerHub](https://hub.docker.com/r/apotdevin/thunderhub) |
 | btcpayserver/docker-woocommerce | 3.0.6-3 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-woocommerce/v3.0.6-3/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/btcpayserver/docker-woocommerce) - [DockerHub](https://hub.docker.com/r/btcpayserver/docker-woocommerce) |
 | mariadb | 10.3 | [✔️](https://raw.githubusercontent.com/docker-library/mariadb/master/10.3/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/docker-library/mariadb) - [DockerHub](https://hub.docker.com/_/mariadb) |
 | traefik | latest | [✔️](https://raw.githubusercontent.com/containous/traefik-library-image/master/scratch/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/containous/traefik-library-image) - [DockerHub](https://hub.docker.com/_/traefik) |
